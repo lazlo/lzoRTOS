@@ -1,0 +1,43 @@
+#include <avr/io.h>
+
+#define LED1_OFFSET	2
+#define LED1_DDR	DDRD
+#define LED1_PORT	PORTD
+
+#define LED2_OFFSET	4
+#define LED2_DDR	DDRD
+#define LED2_PORT	PORTD
+
+#define LED3_OFFSET	6
+#define LED3_DDR	DDRD
+#define LED3_PORT	PORTD
+
+static void netioaddon_init_led(void)
+{
+	LED1_DDR |= (1 << LED1_OFFSET);
+	LED2_DDR |= (1 << LED2_OFFSET);
+	LED3_DDR |= (1 << LED3_OFFSET);
+
+	LED1_PORT |= (1 << LED1_OFFSET);
+	LED2_PORT |= (1 << LED2_OFFSET);
+	LED3_PORT |= (1 << LED3_OFFSET);
+}
+
+static void netio_init_serial(void)
+{
+	/* configure baud rate generator with prescaler */
+#if 1
+	UBRRL = 25; /* 38400 bps */
+#else
+	UBRRL = 12; /* 76800 bps */
+#endif
+	UBRRH = 0;
+	/* enable transmitter and receiver */
+	UCSRB |= (1 << RXEN)|(1 << TXEN);
+}
+
+void netio_init(void)
+{
+	netioaddon_init_led();
+	netio_init_serial();
+}
