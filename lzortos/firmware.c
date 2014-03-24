@@ -27,7 +27,7 @@ void os_start(void)
 {
 	fs_init();
 	sched_init();
-	_putc("ready!\r\n");
+	_puts("ready!\r\n");
 }
 
 int main(void)
