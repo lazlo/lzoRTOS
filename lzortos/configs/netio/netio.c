@@ -1,5 +1,3 @@
-#include "avr_usart.h"
-
 #include <avr/io.h>
 
 #define LED1_OFFSET	2
@@ -33,11 +31,6 @@ static void netioaddon_init_led(void)
 	LED3_PORT |= (1 << LED3_OFFSET);
 }
 
-static void netio_init_serial(void)
-{
-	avr_usart_init();
-}
-
 static void netio_init_eth(void)
 {
 	ENC28J60_INT_DDR |= (1 << ENC28J60_CS_OFFSET);
@@ -47,6 +40,5 @@ static void netio_init_eth(void)
 void netio_init(void)
 {
 	netioaddon_init_led();
-	netio_init_serial();
 	netio_init_eth();
 }
