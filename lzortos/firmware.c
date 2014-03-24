@@ -1,5 +1,6 @@
 #include <avr/io.h>
 #include "board.h"
+#include "enc28j60.h"
 
 void _putc(const char c)
 {
@@ -17,5 +18,6 @@ void _puts(const char *s)
 int main(void)
 {
 	board_init();
+	enc28j60_init();
 	_puts("ready!\r\n");
 }
