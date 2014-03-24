@@ -65,6 +65,7 @@ TARGET = firmware
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c
 SRC += board.c
+SRC += arch/avr/avr_usart.c
 SRC += configs/netio/netio.c
 SRC += drivers/net/enc28j60.c
 
@@ -91,7 +92,7 @@ DEBUG = dwarf-2
 
 # List any extra directories to look for include files here.
 #     Each directory must be seperated by a space.
-EXTRAINCDIRS = configs/netio drivers/net
+EXTRAINCDIRS = configs/netio arch/avr drivers/net
 
 # Compiler flag to set the C Standard level.
 # c89   - "ANSI" C

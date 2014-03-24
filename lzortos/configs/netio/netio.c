@@ -1,3 +1,5 @@
+#include "avr_usart.h"
+
 #include <avr/io.h>
 
 #define LED1_OFFSET	2
@@ -33,15 +35,7 @@ static void netioaddon_init_led(void)
 
 static void netio_init_serial(void)
 {
-	/* configure baud rate generator with prescaler */
-#if 1
-	UBRRL = 25; /* 38400 bps */
-#else
-	UBRRL = 12; /* 76800 bps */
-#endif
-	UBRRH = 0;
-	/* enable transmitter and receiver */
-	UCSRB |= (1 << RXEN)|(1 << TXEN);
+	avr_usart_init();
 }
 
 static void netio_init_eth(void)
