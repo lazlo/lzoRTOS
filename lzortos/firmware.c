@@ -1,13 +1,11 @@
-#include <avr/io.h>
 #include "chip.h"
+#include "avr_usart.h"
 #include "board.h"
 #include "enc28j60.h"
 
 void _putc(const char c)
 {
-	while (!(UCSRA & (1 << UDRE)))
-		;
-	UDR = c;
+	avr_usart_putc(c);
 }
 
 void _puts(const char *s)

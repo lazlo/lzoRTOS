@@ -12,3 +12,10 @@ void avr_usart_init(void)
 	/* enable transmitter and receiver */
 	UCSRB |= (1 << RXEN)|(1 << TXEN);
 }
+
+void avr_usart_putc(const char c)
+{
+	while (!(UCSRA & (1 << UDRE)))
+		;
+	UDR = c;
+}
