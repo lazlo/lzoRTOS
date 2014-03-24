@@ -12,6 +12,14 @@
 #define LED3_DDR	DDRD
 #define LED3_PORT	PORTD
 
+#define ENC28J60_CS_OFFSET	4
+#define ENC28J60_CS_DDR		DDRB
+#define ENC28J60_CS_PORT	PORTB
+
+#define ENC28J60_INT_OFFSET	2
+#define ENC28J60_INT_DDR	DDRB
+#define ENC28J60_INT_PORT	PORTB
+
 static void netioaddon_init_led(void)
 {
 	LED1_DDR |= (1 << LED1_OFFSET);
@@ -36,8 +44,15 @@ static void netio_init_serial(void)
 	UCSRB |= (1 << RXEN)|(1 << TXEN);
 }
 
+static void netio_init_eth(void)
+{
+	ENC28J60_INT_DDR |= (1 << ENC28J60_CS_OFFSET);
+	ENC28J60_INT_DDR &= ~(1 << ENC28J60_INT_OFFSET);
+}
+
 void netio_init(void)
 {
 	netioaddon_init_led();
 	netio_init_serial();
+	netio_init_eth();
 }
