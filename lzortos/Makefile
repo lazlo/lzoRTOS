@@ -69,6 +69,7 @@ SRC += board.c
 SRC += arch/avr/avr_timer.c
 SRC += arch/avr/avr_usart.c
 SRC += arch/avr/avr_spi.c
+SRC += arch/avr/avr_i2c.c
 SRC += configs/netio/netio.c
 SRC += drivers/net/enc28j60.c
 SRC += fs/fs.c
