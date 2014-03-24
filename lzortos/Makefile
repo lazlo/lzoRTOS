@@ -67,6 +67,7 @@ SRC = $(TARGET).c
 SRC += chip.c
 SRC += board.c
 SRC += arch/avr/avr_usart.c
+SRC += arch/avr/avr_spi.c
 SRC += configs/netio/netio.c
 SRC += drivers/net/enc28j60.c
 
