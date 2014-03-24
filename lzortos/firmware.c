@@ -16,12 +16,22 @@ void _puts(const char *s)
 		_putc(*s++);
 }
 
-int main(void)
+void hw_init(void)
 {
 	chip_init();
 	board_init();
 	enc28j60_init();
+}
+
+void os_start(void)
+{
 	fs_init();
 	sched_init();
-	_puts("ready!\r\n");
+	_putc("ready!\r\n");
+}
+
+int main(void)
+{
+	hw_init();
+	os_start();
 }
