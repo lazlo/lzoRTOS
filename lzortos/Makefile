@@ -65,7 +65,7 @@ TARGET = firmware
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c
 SRC += board.c
-SRC += netio.c
+SRC += configs/netio/netio.c
 
 # List Assembler source files here.
 # Make them always end in a capital .S.  Files ending in a lowercase .s
@@ -90,7 +90,7 @@ DEBUG = dwarf-2
 
 # List any extra directories to look for include files here.
 #     Each directory must be seperated by a space.
-EXTRAINCDIRS =
+EXTRAINCDIRS = configs/netio
 
 # Compiler flag to set the C Standard level.
 # c89   - "ANSI" C
