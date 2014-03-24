@@ -1,24 +1,4 @@
-#include <avr/io.h>
-
-#define LED1_OFFSET	2
-#define LED1_DDR	DDRD
-#define LED1_PORT	PORTD
-
-#define LED2_OFFSET	4
-#define LED2_DDR	DDRD
-#define LED2_PORT	PORTD
-
-#define LED3_OFFSET	6
-#define LED3_DDR	DDRD
-#define LED3_PORT	PORTD
-
-#define ENC28J60_CS_OFFSET	4
-#define ENC28J60_CS_DDR		DDRB
-#define ENC28J60_CS_PORT	PORTB
-
-#define ENC28J60_INT_OFFSET	2
-#define ENC28J60_INT_DDR	DDRB
-#define ENC28J60_INT_PORT	PORTB
+#include "pins.h"
 
 static void netioaddon_init_led(void)
 {
