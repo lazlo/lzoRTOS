@@ -64,6 +64,7 @@ TARGET = firmware
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c
+SRC += chip.c
 SRC += board.c
 SRC += arch/avr/avr_usart.c
 SRC += configs/netio/netio.c

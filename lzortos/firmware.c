@@ -1,4 +1,5 @@
 #include <avr/io.h>
+#include "chip.h"
 #include "board.h"
 #include "enc28j60.h"
 
@@ -17,6 +18,7 @@ void _puts(const char *s)
 
 int main(void)
 {
+	chip_init();
 	board_init();
 	enc28j60_init();
 	_puts("ready!\r\n");
