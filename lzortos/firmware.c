@@ -1,3 +1,4 @@
+#include "debug.h"
 #include "chip.h"
 #include "avr_usart.h"
 #include "board.h"
@@ -26,12 +27,15 @@ void hw_init(void)
 void os_start(void)
 {
 	fs_init();
+	dbg("fs: ready!\r\n");
 	sched_init();
-	_puts("ready!\r\n");
+	dbg("sched: ready!\r\n");
 }
 
 int main(void)
 {
 	hw_init();
+	dbg("hw: ready!\r\n");
 	os_start();
+	dbg("os: ready!\r\n");
 }
