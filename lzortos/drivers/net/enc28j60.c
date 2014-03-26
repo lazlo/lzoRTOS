@@ -148,6 +148,31 @@ enum enc28j60_bank3_reg {
 	EPAUSH		= 0x19	/* Pause Timer Value High Byte */
 };
 
+/* Control Registers - Common */
+
+enum enc28j60_comm_reg {
+	RESERVED11	= 0x1a,	/* reserved */
+	EIE		= 0x1b,	/* Ethernet Interrupt Enable Register */
+	EIR		= 0x1c,	/* Ethernet Interrupt Request (Flag) Register */
+	ESTAT		= 0x1d,	/* Ethernet Status Register */
+	ECON2		= 0x1e,	/* Configuration Register 2 */
+	ECON1		= 0x1f	/* Configuration Register 1 */
+};
+
+/* PHY Registers */
+
+enum enc28j60_phy_reg {
+	PHCON1		= 0x00,	/* PHY Control Register 1 */
+	PHSTAT1		= 0x01,	/* Physical Layer Status Register 1 */
+	PHID1		= 0x02,	/* PHY ID1 (read-only) */
+	PHID2		= 0x03,	/* PHY ID2 (read-only) */
+	PHCON2		= 0x10,	/* PHY Control Register 2 */
+	PHSTAT2		= 0x11,	/* Physical Layer Status Register 2 */
+	PHIE		= 0x12,	/* PHY Interrupt Enable Register */
+	PHIR		= 0x13,	/* PHY Interrupt Request (Flag) Register */
+	PHLCON		= 0x14	/* PHY Module LED Control Register */
+};
+
 static void enc_spi_write(const uint8_t op, const uint8_t addr, const uint8_t data)
 {
 	uint8_t header;
