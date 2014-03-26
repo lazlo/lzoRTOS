@@ -17,3 +17,8 @@ void avr_spi_send(const char c)
 	while (!(SPSR & (1 << SPIF)))
 		;
 }
+
+char avr_spi_recv(void)
+{
+	return SPDR;
+}
