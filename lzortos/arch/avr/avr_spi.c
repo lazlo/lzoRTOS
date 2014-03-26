@@ -9,16 +9,12 @@ void avr_spi_init(void)
 	SPCR = (1 << SPE)|(1 << MSTR)|(1 << SPR0);
 }
 
-void avr_spi_send(const char c)
+char avr_spi_trx(const char c)
 {
 	/* Start transmission */
 	SPDR = c;
 	/* Wait for transmission complete */
 	while (!(SPSR & (1 << SPIF)))
 		;
-}
-
-char avr_spi_recv(void)
-{
 	return SPDR;
 }

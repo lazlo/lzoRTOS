@@ -3,8 +3,6 @@
 
 void avr_spi_init(void);
 
-void avr_spi_send(const char c);
-
-char avr_spi_recv(void);
+char avr_spi_trx(const char c);
 
 #endif /* D_ARCH_AVR_SPI_H */
