@@ -6,17 +6,6 @@
 #include "fs.h"
 #include "sched.h"
 
-void _putc(const char c)
-{
-	avr_usart_putc(c);
-}
-
-void _puts(const char *s)
-{
-	while (*s)
-		_putc(*s++);
-}
-
 void hw_init(void)
 {
 	chip_init();
