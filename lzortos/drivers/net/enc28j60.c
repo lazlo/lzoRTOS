@@ -1,6 +1,10 @@
 #include <stdint.h>
 
+#include "pins.h"
 #include "avr_spi.h"
+
+#define ENC28J60_SPI_CS_HIGH	(ENC28J60_CS_PORT &= ~(1 << ENC28J60_CS_OFFSET))
+#define ENC28J60_SPI_CS_LOW	(ENC28J60_CS_PORT |= (1 << ENC28J60_CS_OFFSET))
 
 #define spi_send	avr_spi_send
 
@@ -148,12 +152,16 @@ static void enc_spi_write(const uint8_t op, const uint8_t addr, const uint8_t da
 	uint8_t header;
 	uint8_t payload;
 
+	ENC28J60_SPI_CS_LOW;
+
 	header = op << 5;
 	header |= addr & 0x1f;
 	payload = data;
 
 	spi_send(header);
 	spi_send(payload);
+
+	ENC28J60_SPI_CS_HIGH;
 }
 
 void enc28j60_init(void)
