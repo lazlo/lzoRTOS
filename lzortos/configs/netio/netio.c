@@ -11,18 +11,7 @@ static void netioaddon_init_led(void)
 	LED3_PORT |= (1 << LED3_OFFSET);
 }
 
-static void netio_init_eth(void)
-{
-	/* make CS pin output and set output high */
-	ENC28J60_CS_DDR |= (1 << ENC28J60_CS_OFFSET);
-	ENC28J60_CS_PORT |= (1 << ENC28J60_CS_OFFSET);
-
-	/* make INT pin an input */
-	ENC28J60_INT_DDR &= ~(1 << ENC28J60_INT_OFFSET);
-}
-
 void netio_init(void)
 {
 	netioaddon_init_led();
-	netio_init_eth();
 }

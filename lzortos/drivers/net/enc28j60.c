@@ -166,6 +166,15 @@ static void enc_spi_write(const uint8_t op, const uint8_t addr, const uint8_t da
 
 void enc28j60_init(void)
 {
+	/* GPIO configuration */
+
+	/* make CS pin output and set output high */
+	ENC28J60_CS_DDR |= (1 << ENC28J60_CS_OFFSET);
+	ENC28J60_CS_PORT |= (1 << ENC28J60_CS_OFFSET);
+
+	/* make INT pin an input */
+	ENC28J60_INT_DDR &= ~(1 << ENC28J60_INT_OFFSET);
+
 	/* receive buffer */
 
 	/* set receive buffer start poitner (ERXST) */
