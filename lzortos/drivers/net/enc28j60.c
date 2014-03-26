@@ -1,5 +1,6 @@
 #include <stdint.h>
 
+#include "debug.h"
 #include "pins.h"
 #include "avr_spi.h"
 
@@ -151,6 +152,8 @@ static void enc_spi_write(const uint8_t op, const uint8_t addr, const uint8_t da
 {
 	uint8_t header;
 	uint8_t payload;
+
+	dbg("enc28j60: spi write\r\n");
 
 	ENC28J60_SPI_CS_LOW;
 
