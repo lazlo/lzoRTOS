@@ -75,4 +75,5 @@ void enc28j60_init(void)
 
 	/* configure MAC registers */
 	/* configure PHY registers */
+	dbg("enc28j60: ready!\r\n");
 }

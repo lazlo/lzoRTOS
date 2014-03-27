@@ -1,3 +1,4 @@
+#include "debug.h"
 #include "pins.h"
 
 #define SPI_MOSI_OUTPUT		(SPI_MOSI_DDR	|= (1 << SPI_MOSI_OFFSET))
@@ -18,6 +19,7 @@ void avr_spi_init(void)
 {
 	avr_spi_gpioinit();
 	avr_spi_devinit();
+	dbg("spi ready!\r\n");
 }
 
 char avr_spi_trx(const char c)
