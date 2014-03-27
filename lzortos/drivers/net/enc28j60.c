@@ -45,6 +45,17 @@ static char enc_rcr(const char in)
 	return out;
 }
 
+static void enc_wcr(const char addr, const char data)
+{
+	char op;
+	op = addr;
+	op |= WCR;
+	ENC_SELECT;
+	avr_spi_trx(op);
+	avr_spi_trx(data);
+	ENC_DESELECT;
+}
+
 static void enc_bfs(const char addr, const char mask)
 {
 	char op;
