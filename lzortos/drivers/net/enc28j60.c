@@ -111,11 +111,7 @@ static void enc_txbufinit(void)
 
 static void enc_bank(const char bank)
 {
-	/* Set BSEL1:BSEL0 in ECON1 */
-	if (bank & (1 << 1))	enc_bfs(ECON1, 1);
-	else			enc_bfc(ECON1, 1);
-	if (bank & (1 << 0))	enc_bfs(ECON1, 0);
-	else			enc_bfc(ECON1, 0);
+	enc_wcr(ECON1, bank);
 }
 
 void enc28j60_init(void)
