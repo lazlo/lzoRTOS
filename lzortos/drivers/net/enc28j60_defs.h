@@ -141,7 +141,6 @@ enum enc28j60_bank3_reg {
 };
 
 /* Control Registers - Common */
-
 enum enc28j60_comm_reg {
 	RESERVED11	= 0x1a,	/* reserved */
 	EIE		= 0x1b,	/* Ethernet Interrupt Enable Register */
@@ -152,7 +151,6 @@ enum enc28j60_comm_reg {
 };
 
 /* PHY Registers */
-
 enum enc28j60_phy_reg {
 	PHCON1		= 0x00,	/* PHY Control Register 1 */
 	PHSTAT1		= 0x01,	/* Physical Layer Status Register 1 */
