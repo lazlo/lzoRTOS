@@ -1,4 +1,5 @@
 #include "pins.h"
+#include "enc28j60.h"
 
 static void netioaddon_init_led(void)
 {
@@ -14,4 +15,5 @@ static void netioaddon_init_led(void)
 void netio_init(void)
 {
 	netioaddon_init_led();
+	enc28j60_init();
 }

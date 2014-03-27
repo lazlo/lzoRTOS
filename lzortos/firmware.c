@@ -2,7 +2,6 @@
 #include "chip.h"
 #include "avr_usart.h"
 #include "board.h"
-#include "enc28j60.h"
 #include "fs.h"
 #include "sched.h"
 
@@ -10,7 +9,6 @@ void hw_init(void)
 {
 	chip_init();
 	board_init();
-	enc28j60_init();
 }
 
 void os_start(void)
