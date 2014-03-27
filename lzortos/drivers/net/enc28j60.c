@@ -76,21 +76,24 @@ void enc28j60_init(void)
 {
 	char b;
 	char bstr[3];
+	int i;
 
+	for (i = 0; i < 10; i++) {
 	ENC_SELECT;
-	b = enc_rcr(ECON2);
+	b = enc_rcr(ERXRDPTL);
 	ENC_DESELECT;
 
-	itoa(170, bstr, 16);
-	dbg("170 = 0x");
+	itoa(ERXRDPTL, bstr, 16);
+	dbg("enc28J60: ");
+	dbg("(0x");
 	dbg(bstr);
-	dbg("\r\n");
-
+	dbg(") ");
 
 	itoa(b, bstr, 16);
-	dbg("enc28J60: ECON2 = ");
+	dbg("ERXRDPTL = ");
 	dbg(bstr);
 	dbg("\r\n");
+	}
 
 	/* GPIO configuration */
 	enc_gpioinit();
