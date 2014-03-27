@@ -2,12 +2,13 @@
 
 #include "debug.h"
 #include "pins.h"
-
-#define ENC28J60_SPI_CS_HIGH	(ENC28J60_CS_PORT &= ~(1 << ENC28J60_CS_OFFSET))
-#define ENC28J60_SPI_CS_LOW	(ENC28J60_CS_PORT |= (1 << ENC28J60_CS_OFFSET))
-
 #include "avr_spi.h"
 #include "enc28j60_defs.h"
+
+#define ENC28J60_CS_AS_OUTPUT	(ENC28J60_CS_DDR	|= (1 << ENC28J60_CS_OFFSET))
+#define ENC28J60_CS_SET_HIGH	(ENC28J60_CS_PORT	|= (1 << ENC28J60_CS_OFFSET))
+#define ENC28J60_CS_SET_LOW	(ENC28J60_CS_PORT	&= ~(1 << ENC28J60_CS_OFFSET))
+#define ENC28J60_INT_AS_INPUT	(ENC28J60_INT_DDR	&= ~(1 << ENC28J60_INT_OFFSET))
 
 #if 0
 static void enc_spi_write(const uint8_t op, const uint8_t addr, const uint8_t data)
@@ -33,11 +34,11 @@ static void enc_spi_write(const uint8_t op, const uint8_t addr, const uint8_t da
 static void enc_gpioinit(void)
 {
 	/* make CS pin output and set output high */
-	ENC28J60_CS_DDR |= (1 << ENC28J60_CS_OFFSET);
-	ENC28J60_CS_PORT |= (1 << ENC28J60_CS_OFFSET);
+	ENC28J60_CS_AS_OUTPUT;
+	ENC28J60_CS_SET_HIGH;
 
 	/* make INT pin an input */
-	ENC28J60_INT_DDR &= ~(1 << ENC28J60_INT_OFFSET);
+	ENC28J60_INT_AS_INPUT;
 }
 
 static void enc_rxbufinit(void)
