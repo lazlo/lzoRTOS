@@ -119,6 +119,7 @@ void enc28j60_init(void)
 	int i;
 	char c;
 	char str[3+1];
+	char reg;
 
 	/* GPIO configuration */
 	enc_gpioinit();
@@ -127,16 +128,17 @@ void enc28j60_init(void)
 
 	enc_bank(i);
 
-	c = enc_rcr(ECON1);
+	reg = ECON1;
+	c = enc_rcr(reg);
 
-	itoa(ECON1, str, 16);
+	itoa(reg, str, 16);
 	dbg("enc28J60: ");
-	dbg("(0x");
+	dbg("*(0x");
 	dbg(str);
-	dbg(") ");
+	dbg(")");
 
 	itoa(c, str, 16);
-	dbg("ECON1 = ");
+	dbg(" = ");
 	dbg(str);
 	dbg("\r\n");
 	}
