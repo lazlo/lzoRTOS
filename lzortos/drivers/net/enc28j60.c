@@ -2,15 +2,14 @@
 
 #include "debug.h"
 #include "pins.h"
-#include "avr_spi.h"
 
 #define ENC28J60_SPI_CS_HIGH	(ENC28J60_CS_PORT &= ~(1 << ENC28J60_CS_OFFSET))
 #define ENC28J60_SPI_CS_LOW	(ENC28J60_CS_PORT |= (1 << ENC28J60_CS_OFFSET))
 
-#define spi_send	avr_spi_send
-
+#include "avr_spi.h"
 #include "enc28j60_defs.h"
 
+#if 0
 static void enc_spi_write(const uint8_t op, const uint8_t addr, const uint8_t data)
 {
 	uint8_t header;
@@ -24,25 +23,26 @@ static void enc_spi_write(const uint8_t op, const uint8_t addr, const uint8_t da
 	header |= addr & 0x1f;
 	payload = data;
 
-	spi_send(header);
-	spi_send(payload);
+	avr_spi_send(header);
+	avr_spi_send(payload);
 
 	ENC28J60_SPI_CS_HIGH;
 }
+#endif
 
-void enc28j60_init(void)
+static void enc_gpioinit(void)
 {
-	/* GPIO configuration */
-
 	/* make CS pin output and set output high */
 	ENC28J60_CS_DDR |= (1 << ENC28J60_CS_OFFSET);
 	ENC28J60_CS_PORT |= (1 << ENC28J60_CS_OFFSET);
 
 	/* make INT pin an input */
 	ENC28J60_INT_DDR &= ~(1 << ENC28J60_INT_OFFSET);
+}
 
-	/* receive buffer */
-
+static void enc_rxbufinit(void)
+{
+#if 0
 	/* set receive buffer start poitner (ERXST) */
 	enc_spi_write(WCR, ERXSTL, 0);
 	enc_spi_write(WCR, ERXSTH, 0);
@@ -54,8 +54,21 @@ void enc28j60_init(void)
 	/* set receive buffer read pointer (ERXRDPT) */
 	enc_spi_write(WCR, ERXRDPTL, 0);
 	enc_spi_write(WCR, ERXRDPTH, 0);
+#endif
+}
 
+static void enc_txbufinit(void)
+{
+}
+
+void enc28j60_init(void)
+{
+	/* GPIO configuration */
+	enc_gpioinit();
+	/* receive buffer */
+	enc_rxbufinit();
 	/* transmit buffer */
+	enc_txbufinit();
 	/* receive filters (ERXFCON) */
 
 	/* poll ESTAT.CLKRDY bit */
