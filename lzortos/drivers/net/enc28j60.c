@@ -1,6 +1,7 @@
 #include <stdint.h>
 
 #include "debug.h"
+#include "strutils.h"
 #include "pins.h"
 #include "avr_spi.h"
 #include "enc28j60_defs.h"
@@ -9,6 +10,9 @@
 #define ENC28J60_CS_SET_HIGH	(ENC28J60_CS_PORT	|= (1 << ENC28J60_CS_OFFSET))
 #define ENC28J60_CS_SET_LOW	(ENC28J60_CS_PORT	&= ~(1 << ENC28J60_CS_OFFSET))
 #define ENC28J60_INT_AS_INPUT	(ENC28J60_INT_DDR	&= ~(1 << ENC28J60_INT_OFFSET))
+
+#define ENC_SELECT	ENC28J60_CS_SET_LOW
+#define ENC_DESELECT	ENC28J60_CS_SET_HIGH
 
 #if 0
 static void enc_spi_write(const uint8_t op, const uint8_t addr, const uint8_t data)
@@ -30,6 +34,12 @@ static void enc_spi_write(const uint8_t op, const uint8_t addr, const uint8_t da
 	ENC28J60_SPI_CS_HIGH;
 }
 #endif
+
+static char enc_rcr(const char c)
+{
+	avr_spi_trx(c);
+	return avr_spi_trx(0xff);
+}
 
 static void enc_gpioinit(void)
 {
@@ -64,6 +74,24 @@ static void enc_txbufinit(void)
 
 void enc28j60_init(void)
 {
+	char b;
+	char bstr[3];
+
+	ENC_SELECT;
+	b = enc_rcr(ECON2);
+	ENC_DESELECT;
+
+	itoa(170, bstr, 16);
+	dbg("170 = 0x");
+	dbg(bstr);
+	dbg("\r\n");
+
+
+	itoa(b, bstr, 16);
+	dbg("enc28J60: ECON2 = ");
+	dbg(bstr);
+	dbg("\r\n");
+
 	/* GPIO configuration */
 	enc_gpioinit();
 	/* receive buffer */
