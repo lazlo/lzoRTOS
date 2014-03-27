@@ -20,7 +20,7 @@ void avr_spi_init(void)
 {
 	avr_spi_gpioinit();
 	avr_spi_devinit();
-	dbg("spi ready!\r\n");
+	dbg("spi: ready!\r\n");
 }
 
 char avr_spi_trx(const char c)
