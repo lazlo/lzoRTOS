@@ -3,13 +3,13 @@
 
 /* SPI Instruction Set for the ENC28J60 */
 enum enc28j60_instr {
-	RCR	= 0,	/* Read Control Register */
-	RBM	= 1,	/* Read Buffer Memory */
-	WCR	= 2,	/* Write Control Register */
-	WBM	= 3,	/* Write Buffer Memory */
-	BFS	= 4,	/* Bit Field Set */
-	BFC	= 5,	/* Bit Field Clear */
-	SRC	= 7	/* System Reset Command (Soft Reset) */
+	RCR	= 0x00,	/* Read Control Register */
+	RBM	= 0x20,	/* Read Buffer Memory */
+	WCR	= 0x40,	/* Write Control Register */
+	WBM	= 0x60,	/* Write Buffer Memory */
+	BFS	= 0x80,	/* Bit Field Set */
+	BFC	= 0xa0,	/* Bit Field Clear */
+	SRC	= 0xe0	/* System Reset Command (Soft Reset) */
 };
 
 /* Memory Banks */
