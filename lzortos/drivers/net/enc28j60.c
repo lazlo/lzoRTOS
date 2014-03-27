@@ -35,10 +35,14 @@ static void enc_spi_write(const uint8_t op, const uint8_t addr, const uint8_t da
 }
 #endif
 
-static char enc_rcr(const char c)
+static char enc_rcr(const char in)
 {
-	avr_spi_trx(c);
-	return avr_spi_trx(0xff);
+	char out;
+	ENC_SELECT;
+	avr_spi_trx(in);
+	out = avr_spi_trx(0xff);
+	ENC_DESELECT;
+	return out;
 }
 
 static void enc_gpioinit(void)
@@ -82,9 +86,7 @@ void enc28j60_init(void)
 	enc_gpioinit();
 
 	for (i = 0; i < 10; i++) {
-	ENC_SELECT;
 	c = enc_rcr(ERXRDPTL);
-	ENC_DESELECT;
 
 	itoa(ERXRDPTL, str, 16);
 	dbg("enc28J60: ");
