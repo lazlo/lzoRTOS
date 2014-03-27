@@ -74,29 +74,30 @@ static void enc_txbufinit(void)
 
 void enc28j60_init(void)
 {
-	char b;
-	char bstr[3];
 	int i;
-
-	for (i = 0; i < 10; i++) {
-	ENC_SELECT;
-	b = enc_rcr(ERXRDPTL);
-	ENC_DESELECT;
-
-	itoa(ERXRDPTL, bstr, 16);
-	dbg("enc28J60: ");
-	dbg("(0x");
-	dbg(bstr);
-	dbg(") ");
-
-	itoa(b, bstr, 16);
-	dbg("ERXRDPTL = ");
-	dbg(bstr);
-	dbg("\r\n");
-	}
+	char c;
+	char str[3+1];
 
 	/* GPIO configuration */
 	enc_gpioinit();
+
+	for (i = 0; i < 10; i++) {
+	ENC_SELECT;
+	c = enc_rcr(ERXRDPTL);
+	ENC_DESELECT;
+
+	itoa(ERXRDPTL, str, 16);
+	dbg("enc28J60: ");
+	dbg("(0x");
+	dbg(str);
+	dbg(") ");
+
+	itoa(c, str, 16);
+	dbg("ERXRDPTL = ");
+	dbg(str);
+	dbg("\r\n");
+	}
+
 	/* receive buffer */
 	enc_rxbufinit();
 	/* transmit buffer */
