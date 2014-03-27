@@ -2,6 +2,7 @@
 #include "avr_usart.h"
 #include "avr_spi.h"
 #include "avr_i2c.h"
+#include "avr_adc.h"
 
 void chip_init(void)
 {
@@ -9,4 +10,5 @@ void chip_init(void)
 	avr_usart_init();
 	avr_spi_init();
 	avr_i2c_init();
+	avr_adc_init();
 }
