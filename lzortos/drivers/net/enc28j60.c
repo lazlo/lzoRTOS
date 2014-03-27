@@ -45,6 +45,28 @@ static char enc_rcr(const char in)
 	return out;
 }
 
+static void enc_bfs(const char addr, const char mask)
+{
+	char op;
+	op = addr;
+	op |= BFS; /* set Bit Field Set operation */
+	ENC_SELECT;
+	avr_spi_trx(op);
+	avr_spi_trx(mask);
+	ENC_DESELECT;
+}
+
+static void enc_bfc(const char addr, const char mask)
+{
+	char op;
+	op = addr;
+	op |= BFC; /* set Bit Field Clear operation */
+	ENC_SELECT;
+	avr_spi_trx(op);
+	avr_spi_trx(mask);
+	ENC_DESELECT;
+}
+
 static void enc_gpioinit(void)
 {
 	/* make CS pin output and set output high */
@@ -76,6 +98,15 @@ static void enc_txbufinit(void)
 {
 }
 
+static void enc_bank(const char bank)
+{
+	/* Set BSEL1:BSEL0 in ECON1 */
+	if (bank & (1 << 1))	enc_bfs(ECON1, 1);
+	else			enc_bfc(ECON1, 1);
+	if (bank & (1 << 0))	enc_bfs(ECON1, 0);
+	else			enc_bfc(ECON1, 0);
+}
+
 void enc28j60_init(void)
 {
 	int i;
@@ -85,17 +116,20 @@ void enc28j60_init(void)
 	/* GPIO configuration */
 	enc_gpioinit();
 
-	for (i = 0; i < 10; i++) {
-	c = enc_rcr(ERXRDPTL);
+	for (i = 0; i < 4; i++) {
 
-	itoa(ERXRDPTL, str, 16);
+	enc_bank(i);
+
+	c = enc_rcr(ECON1);
+
+	itoa(ECON1, str, 16);
 	dbg("enc28J60: ");
 	dbg("(0x");
 	dbg(str);
 	dbg(") ");
 
 	itoa(c, str, 16);
-	dbg("ERXRDPTL = ");
+	dbg("ECON1 = ");
 	dbg(str);
 	dbg("\r\n");
 	}
