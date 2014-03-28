@@ -13,7 +13,7 @@
 #define SPI_SCK_DDR		DDRB
 #define SPI_SCK_PORT		PORTB
 
-/* used by configs/netio/netio.c */
+/* used by drivers/net/enc28j60.c */
 
 #define ENC28J60_CS_OFFSET	4
 #define ENC28J60_CS_DDR		DDRB
