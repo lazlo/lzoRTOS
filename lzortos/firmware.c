@@ -6,7 +6,7 @@
 #include "fs.h"
 #include "sched.h"
 
-#include <avr/interrupt.h>
+#include "avr_irq.h"
 
 void hw_init(void)
 {
@@ -27,7 +27,7 @@ int main(void)
 	hw_init();
 	os_start();
 
-	sei();
+	avr_irq_enable();
 
 	while (1)
 		;
