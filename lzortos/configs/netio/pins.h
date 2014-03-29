@@ -96,44 +96,44 @@
 #define DB25_D5_PORT		PORTC
 #define DB25_D5_PIN		PINC
 
-#define DB25_D5_OFFSET		4
-#define DB25_D5_DDR		DDRC
-#define DB25_D5_PORT		PORTC
-#define DB25_D5_PIN		PINC
-
-#define DB25_D6_OFFSET		5
+#define DB25_D6_OFFSET		4
 #define DB25_D6_DDR		DDRC
 #define DB25_D6_PORT		PORTC
 #define DB25_D6_PIN		PINC
 
-#define DB25_D7_OFFSET		6
+#define DB25_D7_OFFSET		5
 #define DB25_D7_DDR		DDRC
 #define DB25_D7_PORT		PORTC
 #define DB25_D7_PIN		PINC
 
-#define DB25_D8_OFFSET		7
+#define DB25_D8_OFFSET		6
 #define DB25_D8_DDR		DDRC
 #define DB25_D8_PORT		PORTC
 #define DB25_D8_PIN		PINC
 
-#define DB25_D9_OFFSET		0
-#define DB25_D9_DDR		DDRA
-#define DB25_D9_PORT		PORTA
-#define DB25_D9_PIN		PINA
+#define DB25_D9_OFFSET		7
+#define DB25_D9_DDR		DDRC
+#define DB25_D9_PORT		PORTC
+#define DB25_D9_PIN		PINC
 
-#define DB25_D10_OFFSET		1
+#define DB25_D10_OFFSET		0
 #define DB25_D10_DDR		DDRA
 #define DB25_D10_PORT		PORTA
 #define DB25_D10_PIN		PINA
 
-#define DB25_D11_OFFSET		2
+#define DB25_D11_OFFSET		1
 #define DB25_D11_DDR		DDRA
 #define DB25_D11_PORT		PORTA
 #define DB25_D11_PIN		PINA
 
-#define DB25_D12_OFFSET		3
+#define DB25_D12_OFFSET		2
 #define DB25_D12_DDR		DDRA
 #define DB25_D12_PORT		PORTA
 #define DB25_D12_PIN		PINA
+
+#define DB25_D13_OFFSET		3
+#define DB25_D13_DDR		DDRA
+#define DB25_D13_PORT		PORTA
+#define DB25_D13_PIN		PINA
 
 #endif /* D_PINS_H */
