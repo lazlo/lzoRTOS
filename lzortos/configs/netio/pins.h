@@ -3,15 +3,12 @@
 
 #include <avr/io.h>
 
-/* used by arch/avr/avr_spi.c */
+/* used by ... */
 
-#define SPI_MOSI_OFFSET		5
-#define SPI_MOSI_DDR		DDRB
-#define SPI_MOSI_PORT		PORTB
-
-#define SPI_SCK_OFFSET		7
-#define SPI_SCK_DDR		DDRB
-#define SPI_SCK_PORT		PORTB
+#define IRDA_OFFSET		0
+#define IRDA_DDR		DDRB
+#define IRDA_PORT		PORTB
+#define IRDA_PIN		PINB
 
 /* used by drivers/net/enc28j60.c */
 
@@ -22,6 +19,16 @@
 #define ENC28J60_INT_OFFSET	2
 #define ENC28J60_INT_DDR	DDRB
 #define ENC28J60_INT_PORT	PORTB
+
+/* used by arch/avr/avr_spi.c */
+
+#define SPI_MOSI_OFFSET		5
+#define SPI_MOSI_DDR		DDRB
+#define SPI_MOSI_PORT		PORTB
+
+#define SPI_SCK_OFFSET		7
+#define SPI_SCK_DDR		DDRB
+#define SPI_SCK_PORT		PORTB
 
 /* used by configs/netio/netio.c */
 
@@ -39,13 +46,6 @@
 
 /* used by ... */
 
-#define IRDA_OFFSET		0
-#define IRDA_DDR		DDRB
-#define IRDA_PORT		PORTB
-#define IRDA_PIN		PINB
-
-/* used by ... */
-
 #define MMC_CARD_OFFSET		7
 #define MMC_CARD_DDR		DDRD
 #define MMC_CARD_PORT		PORTD
@@ -53,16 +53,6 @@
 #define MMC_DATA3_OFFSET	3
 #define MMC_DATA3_DDR		DDRB
 #define MMC_DATA3_PORT		PORTB
-
-/* used by ... */
-
-#define USART_RXD_OFFSET	0
-#define USART_RXD_DDR		DDRD
-#define USART_RXD_PORT		PORTD
-
-#define USART_TXD_OFFSET	1
-#define USART_TXD_DDR		DDRD
-#define USART_TXD_PORT		PORTD
 
 /* used by ... */
 
@@ -153,5 +143,15 @@
 #define ADC4_OFFSET		7
 #define ADC4_DDR		DDRA
 #define ADC4_PORT		PORTA
+
+/* used by ... */
+
+#define USART_RXD_OFFSET	0
+#define USART_RXD_DDR		DDRD
+#define USART_RXD_PORT		PORTD
+
+#define USART_TXD_OFFSET	1
+#define USART_TXD_DDR		DDRD
+#define USART_TXD_PORT		PORTD
 
 #endif /* D_PINS_H */
