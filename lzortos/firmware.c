@@ -2,7 +2,7 @@
 #include "pins.h"
 #include "chip.h"
 #include "avr_usart.h"
-#include "board.h"
+#include "netio.h"
 #include "fs.h"
 #include "sched.h"
 

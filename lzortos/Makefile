@@ -67,7 +67,6 @@ SRC = $(TARGET).c
 SRC += debug.c
 SRC += strutils.c
 SRC += chip.c
-SRC += board.c
 SRC += arch/avr/avr_timer.c
 SRC += arch/avr/avr_usart.c
 SRC += arch/avr/avr_spi.c

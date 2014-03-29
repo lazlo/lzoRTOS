@@ -12,7 +12,7 @@ static void netioaddon_init_led(void)
 	LED3_PORT |= (1 << LED3_OFFSET);
 }
 
-void netio_init(void)
+void board_init(void)
 {
 	netioaddon_init_led();
 	enc28j60_init();
