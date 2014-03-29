@@ -10,6 +10,13 @@
 #define IRDA_PORT		PORTB
 #define IRDA_PIN		PINB
 
+/* used by ... */
+
+#define J11_OFFSET		1
+#define J11_DDR			PORTB
+#define J11_PORT		PORTB
+#define J11_PIN			PINB
+
 /* used by drivers/net/enc28j60.c */
 
 #define ENC28J60_CS_OFFSET	4
