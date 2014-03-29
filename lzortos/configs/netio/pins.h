@@ -136,4 +136,22 @@
 #define DB25_D13_PORT		PORTA
 #define DB25_D13_PIN		PINA
 
+/* used by ... */
+
+#define ADC1_OFFSET		4
+#define ADC1_DDR		DDRA
+#define ADC1_PORT		PORTA
+
+#define ADC2_OFFSET		5
+#define ADC2_DDR		DDRA
+#define ADC2_PORT		PORTA
+
+#define ADC3_OFFSET		6
+#define ADC3_DDR		DDRA
+#define ADC3_PORT		PORTA
+
+#define ADC4_OFFSET		7
+#define ADC4_DDR		DDRA
+#define ADC4_PORT		PORTA
+
 #endif /* D_PINS_H */
