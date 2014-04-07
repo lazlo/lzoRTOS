@@ -10,5 +10,7 @@ void chip_init(void)
 	avr_usart_init();
 	avr_spi_init();
 	avr_i2c_init();
+#ifdef CONFIG_ADC
 	avr_adc_init();
+#endif
 }
