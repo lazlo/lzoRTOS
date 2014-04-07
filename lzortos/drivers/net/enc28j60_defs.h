@@ -163,4 +163,13 @@ enum enc28j60_phy_reg {
 	PHLCON		= 0x14	/* PHY Module LED Control Register */
 };
 
+/* Status Register Bits */
+
+#define INT		7
+#define BUFER		6
+#define LATECOL		4
+#define RXBUSY		2
+#define TXABRT		1
+#define CLKRDY		0
+
 #endif /* D_ENC28J60_DEFS_H */
