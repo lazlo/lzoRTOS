@@ -123,6 +123,13 @@ static int enc_clkready(void)
 	return 0;
 }
 
+static void enc_clkout(const unsigned char ps)
+{
+	unsigned char regv = (ps << COCON_OFFSET) & COCON_MASK;
+	enc_bank(BANK3);
+	enc_wcr(ECOCON, regv);
+}
+
 void enc28j60_init(void)
 {
 	int i;
@@ -136,6 +143,9 @@ void enc28j60_init(void)
 	/* Wait for the Oscillator Start-Up timer to expire */
 	while (!enc_clkready())
 		;
+
+	/* Set clock output configuration (optional) */
+	enc_clkout(CLKOUT_DIV2);
 
 	for (i = 0; i < 4; i++) {
 
