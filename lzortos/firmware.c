@@ -17,7 +17,9 @@ void hw_init(void)
 
 void os_start(void)
 {
+#ifdef CONFIG_FS
 	fs_init();
+#endif
 	sched_init();
 	dbg("os: ready!\r\n");
 }
