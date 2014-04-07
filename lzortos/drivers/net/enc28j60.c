@@ -26,24 +26,29 @@
  * Private functions
  ******************************************************************************/
 
-#if 0
-static void enc_spi_write(const uint8_t op, const uint8_t addr, const uint8_t data)
+//#define ENC_REGIO_NEW
+
+#ifdef ENC_REGIO_NEW
+static unsigned char enc_regio(const uint8_t op, const uint8_t addr, const uint8_t data)
 {
+	unsigned char rv;
 	uint8_t header;
 	uint8_t payload;
 
 	dbg("enc28j60: spi write\r\n");
 
-	ENC28J60_SPI_CS_LOW;
-
 	header = op << 5;
 	header |= addr & 0x1f;
 	payload = data;
 
-	avr_spi_send(header);
-	avr_spi_send(payload);
+	ENC_SELECT;
 
-	ENC28J60_SPI_CS_HIGH;
+	avr_spi_trx(header);
+	rv = avr_spi_trx(payload);
+
+	ENC_DESELECT;
+
+	return rv;
 }
 #endif
 
@@ -54,17 +59,22 @@ static void enc_spi_write(const uint8_t op, const uint8_t addr, const uint8_t da
 /* Read Control Register instruction */
 static char enc_rcr(const char in)
 {
+#ifndef ENC_REGIO_NEW
 	char out;
 	ENC_SELECT;
 	avr_spi_trx(in);
 	out = avr_spi_trx(0xff);
 	ENC_DESELECT;
 	return out;
+#else
+	return enc_regio(RCR, in, 0xff);
+#endif
 }
 
 /* Write Control Register instruction */
 static void enc_wcr(const char addr, const char data)
 {
+#ifndef ENC_REGIO_NEW
 	char op;
 	op = addr;
 	op |= WCR;
@@ -72,11 +82,15 @@ static void enc_wcr(const char addr, const char data)
 	avr_spi_trx(op);
 	avr_spi_trx(data);
 	ENC_DESELECT;
+#else
+	enc_regio(WCR, addr, data);
+#endif
 }
 
 /* Bit Field Set instruction */
 static void enc_bfs(const char addr, const char mask)
 {
+#ifndef ENC_REGIO_NEW
 	char op;
 	op = addr;
 	op |= BFS; /* set Bit Field Set operation */
@@ -84,11 +98,15 @@ static void enc_bfs(const char addr, const char mask)
 	avr_spi_trx(op);
 	avr_spi_trx(mask);
 	ENC_DESELECT;
+#else
+	enc_regio(BFS, addr, mask);
+#endif
 }
 
 /* Bit Field Clear instruction */
 static void enc_bfc(const char addr, const char mask)
 {
+#ifndef ENC_REGIO_NEW
 	char op;
 	op = addr;
 	op |= BFC; /* set Bit Field Clear operation */
@@ -96,6 +114,9 @@ static void enc_bfc(const char addr, const char mask)
 	avr_spi_trx(op);
 	avr_spi_trx(mask);
 	ENC_DESELECT;
+#else
+	enc_regio(BFC, addr, mask);
+#endif
 }
 
 /*-----------------------------------------------------------------------------
