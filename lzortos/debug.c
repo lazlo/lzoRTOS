@@ -8,5 +8,7 @@ static void _puts(const char *s)
 
 void dbg(const char *s)
 {
+#ifdef CONFIG_DEBUG
 	_puts(s);
+#endif
 }
