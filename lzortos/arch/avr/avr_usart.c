@@ -19,3 +19,11 @@ void avr_usart_putc(const char c)
 		;
 	UDR = c;
 }
+
+char avr_usart_getc(void)
+{
+	while (!(UCSRA & (1 << RXC)))
+		;
+
+	return UDR;
+}
