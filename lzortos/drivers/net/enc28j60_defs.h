@@ -172,4 +172,20 @@ enum enc28j60_phy_reg {
 #define TXABRT		1
 #define CLKRDY		0
 
+/*  Clock Output Control Register Bits */
+
+#define COCON_OFFSET	0
+#define COCON_MASK	0x07
+
+/* Clock Output Configuration Prescalers */
+
+enum enc28j60_clkout_ps {
+	CLKOUT_DISABLE	= 0,
+	CLKOUT_DIV1	= 1,	/* 25 MHz */
+	CLKOUT_DIV2	= 2,	/* 8.333333 MHz */
+	CLKOUT_DIV3	= 3,	/* 6.25 MHz */
+	CLKOUT_DIV4	= 4,	/* 3.125 */
+	CLKOUT_DIV8	= 5
+};
+
 #endif /* D_ENC28J60_DEFS_H */
