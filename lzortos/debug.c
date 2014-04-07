@@ -1,3 +1,4 @@
+#include "config.h"
 #include "avr_usart.h"
 
 static void _puts(const char *s)
