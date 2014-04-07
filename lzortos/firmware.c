@@ -31,8 +31,12 @@ int main(void)
 
 	avr_irq_enable();
 
+	#include "lsh.h"
+
 	while (1)
-		;
+	{
+		lsh();
+	}
 }
 
 void Task_ToggleLeds(void)
