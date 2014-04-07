@@ -18,7 +18,7 @@ static void lsh_prompt(void)
 	lsh_puts("> ");
 }
 
-static void lsh_getline(char *input, const int limit)
+static int lsh_getline(char *input, const int limit)
 {
 	int c;
 	int i = 0;
@@ -28,15 +28,20 @@ static void lsh_getline(char *input, const int limit)
 		uart_putc(c);
 	}
 	line[++i] = '\0';
+	return i;
 }
 
 void lsh(void)
 {
+	int len;
 	lsh_prompt();
-	lsh_getline(line, LSH_GETLINE_NCHARS);
+
+	len = lsh_getline(line, LSH_GETLINE_NCHARS);
 	lsh_puts("\r\n");
 
-	lsh_puts("read: ");
-	lsh_puts(line);
-	lsh_puts("\r\n");
+	if (len > 1) {
+		lsh_puts("read: ");
+		lsh_puts(line);
+		lsh_puts("\r\n");
+	}
 }
