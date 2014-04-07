@@ -1,3 +1,7 @@
+/******************************************************************************
+ * Includes
+ ******************************************************************************/
+
 #include <stdint.h>
 
 #include "debug.h"
@@ -6,6 +10,10 @@
 #include "avr_spi.h"
 #include "enc28j60_defs.h"
 
+/******************************************************************************
+ * Macro symbols
+ ******************************************************************************/
+
 #define ENC28J60_CS_AS_OUTPUT	(ENC28J60_CS_DDR	|= (1 << ENC28J60_CS_OFFSET))
 #define ENC28J60_CS_SET_HIGH	(ENC28J60_CS_PORT	|= (1 << ENC28J60_CS_OFFSET))
 #define ENC28J60_CS_SET_LOW	(ENC28J60_CS_PORT	&= ~(1 << ENC28J60_CS_OFFSET))
@@ -13,6 +21,10 @@
 
 #define ENC_SELECT	ENC28J60_CS_SET_LOW
 #define ENC_DESELECT	ENC28J60_CS_SET_HIGH
+
+/******************************************************************************
+ * Private functions
+ ******************************************************************************/
 
 #if 0
 static void enc_spi_write(const uint8_t op, const uint8_t addr, const uint8_t data)
@@ -35,6 +47,11 @@ static void enc_spi_write(const uint8_t op, const uint8_t addr, const uint8_t da
 }
 #endif
 
+/*-----------------------------------------------------------------------------
+ * SPI Command Instructions
+ *----------------------------------------------------------------------------*/
+
+/* Read Control Register instruction */
 static char enc_rcr(const char in)
 {
 	char out;
@@ -45,6 +62,7 @@ static char enc_rcr(const char in)
 	return out;
 }
 
+/* Write Control Register instruction */
 static void enc_wcr(const char addr, const char data)
 {
 	char op;
@@ -56,6 +74,7 @@ static void enc_wcr(const char addr, const char data)
 	ENC_DESELECT;
 }
 
+/* Bit Field Set instruction */
 static void enc_bfs(const char addr, const char mask)
 {
 	char op;
@@ -67,6 +86,7 @@ static void enc_bfs(const char addr, const char mask)
 	ENC_DESELECT;
 }
 
+/* Bit Field Clear instruction */
 static void enc_bfc(const char addr, const char mask)
 {
 	char op;
@@ -78,6 +98,11 @@ static void enc_bfc(const char addr, const char mask)
 	ENC_DESELECT;
 }
 
+/*-----------------------------------------------------------------------------
+ * Initialization
+ *----------------------------------------------------------------------------*/
+
+/* Initialize GPIOs */
 static void enc_gpioinit(void)
 {
 	/* make CS pin output and set output high */
@@ -88,6 +113,7 @@ static void enc_gpioinit(void)
 	ENC28J60_INT_AS_INPUT;
 }
 
+/* Initialize receive buffer */
 static void enc_rxbufinit(void)
 {
 #if 0
@@ -105,15 +131,19 @@ static void enc_rxbufinit(void)
 #endif
 }
 
+/* Initialize transmit buffer */
 static void enc_txbufinit(void)
 {
 }
 
+/* Select a memory bank */
 static void enc_bank(const char bank)
 {
 	enc_wcr(ECON1, bank);
 }
 
+/* Check if the oscillator start-up timer has expired and
+ * the device is ready to perform regular operation */
 static int enc_clkready(void)
 {
 	char s;
@@ -123,12 +153,21 @@ static int enc_clkready(void)
 	return 0;
 }
 
+/* Configure the optional clock output pin (CLKOUT).
+ *
+ * Paramters
+ *   ps		See enc28j60_clkout_ps for values
+ */
 static void enc_clkout(const unsigned char ps)
 {
 	unsigned char regv = (ps << COCON_OFFSET) & COCON_MASK;
 	enc_bank(BANK3);
 	enc_wcr(ECOCON, regv);
 }
+
+/******************************************************************************
+ * Public functions
+ ******************************************************************************/
 
 void enc28j60_init(void)
 {
