@@ -33,7 +33,7 @@ int main(void)
 		;
 }
 
-ISR(TIMER1_COMPA_vect)
+void Task_ToggleLeds(void)
 {
 	static int i = 0;
 
@@ -51,4 +51,9 @@ ISR(TIMER1_COMPA_vect)
 			LED3_PORT |= (1 << LED3_OFFSET);
 		}
 	}
+}
+
+ISR(TIMER1_COMPA_vect)
+{
+	Task_ToggleLeds();
 }
