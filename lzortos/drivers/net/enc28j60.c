@@ -114,6 +114,15 @@ static void enc_bank(const char bank)
 	enc_wcr(ECON1, bank);
 }
 
+static int enc_clkready(void)
+{
+	char s;
+	s = enc_rcr(ESTAT);
+	if (s & (1 << CLKRDY))
+		return 1;
+	return 0;
+}
+
 void enc28j60_init(void)
 {
 	int i;
@@ -123,6 +132,10 @@ void enc28j60_init(void)
 
 	/* GPIO configuration */
 	enc_gpioinit();
+
+	/* Wait for the Oscillator Start-Up timer to expire */
+	while (!enc_clkready())
+		;
 
 	for (i = 0; i < 4; i++) {
 
