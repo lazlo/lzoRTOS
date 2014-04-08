@@ -101,7 +101,7 @@ DEBUG = dwarf-2
 
 # List any extra directories to look for include files here.
 #     Each directory must be seperated by a space.
-EXTRAINCDIRS = configs/netio arch/avr drivers/net fs sched libc ../apps/lsh
+EXTRAINCDIRS = include configs/netio arch/avr drivers/net fs sched libc ../apps/lsh
 
 # Compiler flag to set the C Standard level.
 # c89   - "ANSI" C
