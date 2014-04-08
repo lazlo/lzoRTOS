@@ -12,8 +12,14 @@ static void netioaddon_init_led(void)
 	LED3_PORT |= (1 << LED3_OFFSET);
 }
 
+static void netioaddon_init_irda(void)
+{
+	IRDA_DDR &= ~(1 << IRDA_OFFSET);
+}
+
 void board_init(void)
 {
 	netioaddon_init_led();
+	netioaddon_init_irda();
 	enc28j60_init();
 }
