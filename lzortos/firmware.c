@@ -73,13 +73,9 @@ void Task_ToggleLeds(void)
 		i++;
 	} else {
 		i = 0;
-		if (LED1_PORT & (1 << LED1_OFFSET)) {
-			LED1_PORT &= ~(1 << LED1_OFFSET);
-			LED2_PORT &= ~(1 << LED2_OFFSET);
+		if (LED3_PORT & (1 << LED3_OFFSET)) {
 			LED3_PORT &= ~(1 << LED3_OFFSET);
 		} else {
-			LED1_PORT |= (1 << LED1_OFFSET);
-			LED2_PORT |= (1 << LED2_OFFSET);
 			LED3_PORT |= (1 << LED3_OFFSET);
 		}
 	}
