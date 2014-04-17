@@ -1,6 +1,13 @@
 #ifndef D_SCHED_H
 #define D_SCHED_H
 
+struct task {
+	void (*fp)(void);
+	int delay;
+	int periode;
+	int run;
+};
+
 void sched_init(void);
 
 int sched_task_add(void (*fp)(void), const int delay, const int periode);
