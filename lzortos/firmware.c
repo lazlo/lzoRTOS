@@ -27,6 +27,14 @@ void os_start(void)
 #ifdef CONFIG_SCHED
 	sched_init();
 #endif
+#ifdef CONFIG_SCHED
+
+	/* Add tasks here. */
+
+#endif
+#ifdef CONFIG_SCHED
+	sched_start();
+#endif
 	dbg("os: ready!\r\n");
 }
 
@@ -41,7 +49,11 @@ int main(void)
 
 	while (1)
 	{
+#ifdef CONFIG_SCHED
+		sched_dispatch_tasks();
+#else
 		lsh();
+#endif
 	}
 }
 
@@ -68,4 +80,7 @@ void Task_ToggleLeds(void)
 ISR(TIMER1_COMPA_vect)
 {
 	Task_ToggleLeds();
+#ifdef CONFIG_SCHED
+	sched_update();
+#endif
 }
