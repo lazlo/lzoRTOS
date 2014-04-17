@@ -3,7 +3,9 @@
 #include "chip.h"
 #include "avr_usart.h"
 #include "netio.h"
+#ifdef CONFIG_FS
 #include "fs.h"
+#endif
 #ifdef CONFIG_SCHED
 #include "sched.h"
 #endif
