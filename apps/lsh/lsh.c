@@ -31,6 +31,59 @@ static int lsh_getline(char *input, const int limit)
 	return i;
 }
 
+static void lsh_parse(char *input, const int limit)
+{
+  /* split line by whitespaces */
+  /* identify command */
+  /* verify command is known */
+#if 0
+  lsh_puts(" arp\r\n");
+  lsh_puts(" cat\r\n");
+  lsh_puts(" cd\r\n");
+  lsh_puts(" cp\r\n");
+  lsh_puts(" dd\r\n");
+  lsh_puts(" du\r\n");
+  lsh_puts(" df\r\n");
+  lsh_puts(" echo\r\n");
+  lsh_puts(" env\r\n");
+  lsh_puts(" free\r\n");
+  lsh_puts(" grep\r\n");
+  lsh_puts(" halt\r\n");
+  lsh_puts(" head\r\n");
+  lsh_puts(" help\r\n");
+  lsh_puts(" hostname\r\n");
+  lsh_puts(" hwclock\r\n");
+  lsh_puts(" i2c\r\n");
+  lsh_puts(" ifconfig\r\n");
+  lsh_puts(" kill\r\n");
+  lsh_puts(" less\r\n");
+  lsh_puts(" ls\r\n");
+  lsh_puts(" mount\r\n");
+  lsh_puts(" mkdir\r\n");
+  lsh_puts(" mv\r\n");
+  lsh_puts(" netstat\r\n");
+  lsh_puts(" ping\r\n");
+  lsh_puts(" ps\r\n");
+  lsh_puts(" pwd\r\n");
+  lsh_puts(" rm\r\n");
+  lsh_puts(" rmdir\r\n");
+  lsh_puts(" ss\r\n");
+  lsh_puts(" strings\r\n");
+  lsh_puts(" tail\r\n");
+  lsh_puts(" touch\r\n");
+  lsh_puts(" tty\r\n");
+  lsh_puts(" uptime\r\n");
+  lsh_puts(" umount\r\n");
+  lsh_puts(" uname\r\n");
+  lsh_puts(" wget\r\n");
+  lsh_puts(" xd\r\n");
+  lsh_puts(" mb\r\n");
+  lsh_puts(" mh\r\n");
+  lsh_puts(" mw\r\n");
+#endif
+  /* execute the command */
+}
+
 void lsh(void)
 {
 	int len;
@@ -43,5 +96,7 @@ void lsh(void)
 		lsh_puts("read: ");
 		lsh_puts(line);
 		lsh_puts("\r\n");
+
+		lsh_parse(line, len);
 	}
 }
