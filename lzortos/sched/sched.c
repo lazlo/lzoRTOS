@@ -5,6 +5,12 @@ void sched_init(void)
 	dbg("sched: ready!\r\n");
 }
 
+/* Add a task. */
+int sched_task_add(void (*fp)(void), const int delay, const int periode)
+{
+	return -1;
+}
+
 /* Enable the scheduler. */
 void sched_start(void)
 {

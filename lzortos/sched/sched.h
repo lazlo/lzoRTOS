@@ -3,6 +3,8 @@
 
 void sched_init(void);
 
+int sched_task_add(void (*fp)(void), const int delay, const int periode);
+
 void sched_start(void);
 
 void sched_update(void);
