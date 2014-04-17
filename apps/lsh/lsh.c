@@ -7,6 +7,8 @@
 
 static char line[CONFIG_LSH_GETLINE_NCHARS];
 
+/* IO functions **************************************************************/
+
 static void lsh_puts(char *s)
 {
 	while (*s)
@@ -30,6 +32,8 @@ static int lsh_getline(char *input, const int limit)
 	line[++i] = '\0';
 	return i;
 }
+
+/* Command line processing ***************************************************/
 
 static void lsh_parse(char *input, const int limit)
 {
