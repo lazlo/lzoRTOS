@@ -12,6 +12,13 @@
 
 #include "avr_irq.h"
 
+#if 0
+#ifdef CONFIG_SCHED
+/* Task list used by the simple co-operative scheduler. */
+struct task g_sched_task[CONFIG_SCHED_NTASKS];
+#endif
+#endif
+
 void hw_init(void)
 {
 	chip_init();
