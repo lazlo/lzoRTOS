@@ -28,6 +28,7 @@ void os_start(void)
 	sched_init();
 #endif
 #ifdef CONFIG_SCHED
+	sched_add_task(lsh, 0, 100);
 
 	/* Add tasks here. */
 
