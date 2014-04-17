@@ -7,6 +7,6 @@
 //#define CONFIG_ADC
 //#define CONFIG_FS
 
-#define LSH_GETLINE_NCHARS 80
+#define CONFIG_LSH_GETLINE_NCHARS 80
 
 #endif /* D_CONFIG_H */

@@ -5,7 +5,7 @@
 #define uart_putc	avr_usart_putc
 #define uart_getc	avr_usart_getc
 
-static char line[LSH_GETLINE_NCHARS];
+static char line[CONFIG_LSH_GETLINE_NCHARS];
 
 static void lsh_puts(char *s)
 {
@@ -36,7 +36,7 @@ void lsh(void)
 	int len;
 	lsh_prompt();
 
-	len = lsh_getline(line, LSH_GETLINE_NCHARS);
+	len = lsh_getline(line, CONFIG_LSH_GETLINE_NCHARS);
 	lsh_puts("\r\n");
 
 	if (len > 1) {
