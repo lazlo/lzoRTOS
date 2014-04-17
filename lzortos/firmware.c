@@ -4,7 +4,9 @@
 #include "avr_usart.h"
 #include "netio.h"
 #include "fs.h"
+#ifdef CONFIG_SCHED
 #include "sched.h"
+#endif
 
 #include "avr_irq.h"
 
@@ -20,7 +22,9 @@ void os_start(void)
 #ifdef CONFIG_FS
 	fs_init();
 #endif
+#ifdef CONFIG_SCHED
 	sched_init();
+#endif
 	dbg("os: ready!\r\n");
 }
 
