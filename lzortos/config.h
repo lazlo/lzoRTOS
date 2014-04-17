@@ -12,6 +12,9 @@
 /* Enable the basic co-operative scheduler. */
 #define CONFIG_SCHED
 
+/* Maximum number of tasks. */
+#define CONFIG_SCHED_NTASKS 8
+
 /* Hardware support **********************************************************/
 
 /* Enable support for I2C peripherals. */
