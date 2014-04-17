@@ -57,6 +57,11 @@ int main(void)
 
 	while (1)
 	{
+		if (LED1_PORT & (1 << LED1_OFFSET)) {
+			LED1_PORT &= ~(1 << LED1_OFFSET);
+		} else {
+			LED1_PORT |= (1 << LED1_OFFSET);
+		}
 #ifdef CONFIG_SCHED
 		sched_dispatch_tasks();
 #else
@@ -83,6 +88,12 @@ void Task_ToggleLeds(void)
 
 ISR(TIMER1_COMPA_vect)
 {
+	if (LED2_PORT & (1 << LED2_OFFSET)) {
+		LED2_PORT &= ~(1 << LED2_OFFSET);
+	} else {
+		LED2_PORT |= (1 << LED2_OFFSET);
+	}
+
 #ifndef CONFIG_SCHED
 	Task_ToggleLeds();
 #endif
