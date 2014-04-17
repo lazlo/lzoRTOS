@@ -15,7 +15,7 @@ static void lsh_puts(char *s)
 
 static void lsh_prompt(void)
 {
-	lsh_puts("> ");
+	lsh_puts("lsh> ");
 }
 
 static int lsh_getline(char *input, const int limit)
