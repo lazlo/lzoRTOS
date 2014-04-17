@@ -1,4 +1,8 @@
 #include "debug.h"
+#include "config.h"
+#include "sched.h"
+
+extern struct task g_sched_task[];
 
 void sched_init(void)
 {
