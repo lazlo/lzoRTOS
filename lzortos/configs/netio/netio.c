@@ -1,3 +1,4 @@
+#include "config.h"
 #include "pins.h"
 #include "enc28j60.h"
 
@@ -21,5 +22,7 @@ void board_init(void)
 {
 	netioaddon_init_led();
 	netioaddon_init_irda();
+#ifdef CONFIG_SPI
 	enc28j60_init();
+#endif
 }

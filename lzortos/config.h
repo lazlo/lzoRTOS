@@ -23,6 +23,9 @@
 /* Configure 16-bit timer1 to tick every n Number of miliseconds */
 #define CONFIG_TIMER1_TICK_MS 10
 
+/* Enable support for SPI peripherals. */
+#define CONFIG_SPI
+
 /* Enable support for I2C peripherals. */
 //#define CONFIG_I2C
 
