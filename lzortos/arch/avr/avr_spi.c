@@ -1,13 +1,13 @@
 #include "debug.h"
 #include "pins.h"
 
-#define SPI_MOSI_OUTPUT		(SPI_MOSI_DDR	|= (1 << SPI_MOSI_OFFSET))
-#define SPI_SCK_OUTPUT		(SPI_SCK_DDR	|= (1 << SPI_SCK_OFFSET))
+#define GPIO_SPI_MOSI_OUTPUT		(GPIO_SPI_MOSI_DDR	|= (1 << GPIO_SPI_MOSI_OFFSET))
+#define GPIO_SPI_SCK_OUTPUT		(GPIO_SPI_SCK_DDR	|= (1 << GPIO_SPI_SCK_OFFSET))
 
 static void avr_spi_gpioinit(void)
 {
-	SPI_MOSI_OUTPUT;
-	SPI_SCK_OUTPUT;
+	GPIO_SPI_MOSI_OUTPUT;
+	GPIO_SPI_SCK_OUTPUT;
 }
 
 static void avr_spi_devinit(void)

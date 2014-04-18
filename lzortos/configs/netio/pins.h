@@ -29,13 +29,13 @@
 
 /* used by arch/avr/avr_spi.c */
 
-#define SPI_MOSI_OFFSET		5
-#define SPI_MOSI_DDR		DDRB
-#define SPI_MOSI_PORT		PORTB
+#define GPIO_SPI_MOSI_OFFSET		5
+#define GPIO_SPI_MOSI_DDR		DDRB
+#define GPIO_SPI_MOSI_PORT		PORTB
 
-#define SPI_SCK_OFFSET		7
-#define SPI_SCK_DDR		DDRB
-#define SPI_SCK_PORT		PORTB
+#define GPIO_SPI_SCK_OFFSET		7
+#define GPIO_SPI_SCK_DDR		DDRB
+#define GPIO_SPI_SCK_PORT		PORTB
 
 /* used by configs/netio/netio.c */
 
