@@ -2,6 +2,8 @@
 #include "debug.h"
 #include "avr_usart.h"
 
+#include "lsh_cmd.h"
+
 #define uart_putc	avr_usart_putc
 #define uart_getc	avr_usart_getc
 
@@ -103,15 +105,6 @@ static void lsh_cmd_help(void)
 	lsh_puts(" mh\r\n");
 	lsh_puts(" mw\r\n");
 #endif
-}
-
-static void lsh_cmd_ps(void)
-{
-	int i;
-
-	lsh_puts("PID TTY TIME CMD\r\n");
-	for (i = 0; i < CONFIG_SCHED_NTASKS; i++)
-		lsh_puts("0   pts/0 00:00:00 foo\r\n");
 }
 
 /* Command line processing ***************************************************/
