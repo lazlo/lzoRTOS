@@ -5,7 +5,7 @@
 #include "avr_i2c.h"
 #include "avr_adc.h"
 
-void chip_init(void)
+int chip_init(void)
 {
 	avr_timer1_init(CONFIG_TIMER1_TICK_MS);
 	avr_usart_init();
@@ -18,4 +18,5 @@ void chip_init(void)
 #ifdef CONFIG_ADC
 	avr_adc_init();
 #endif
+	return 0;
 }
