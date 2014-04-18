@@ -13,7 +13,11 @@ static void set_mode_ctc(void)
 
 static void set_inten(void)
 {
+#ifdef __AVR_ATmega1284P__
+	TIMSK1 |= (1 << OCIE1A);
+#else
 	TIMSK |= (1 << OCIE1A);
+#endif
 }
 
 static void set_clock(void)
