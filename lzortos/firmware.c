@@ -22,6 +22,8 @@ struct task g_sched_task[CONFIG_SCHED_NTASKS];
 #endif
 #endif
 
+void Task_ToggleLed3(void);
+
 void hw_init(void)
 {
 	chip_init();
