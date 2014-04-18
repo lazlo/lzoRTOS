@@ -12,6 +12,7 @@
 
 #define task_init(t)	task_set(t, 0, 0, 0, 0)
 
+#define CONFIG_SCHED_ETL
 #ifdef CONFIG_SCHED_ETL
 extern struct task g_sched_task[];
 #else
