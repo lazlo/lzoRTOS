@@ -36,7 +36,7 @@ void os_start(void)
 #endif
 #ifdef CONFIG_SCHED
 	sched_add_task(lsh, 0, 100);
-	sched_add_task(Task_ToggleLeds, 10, 100);
+	sched_add_task(Task_ToggleLed3, 10, 100);
 	/* Add tasks here. */
 
 #endif
@@ -70,7 +70,7 @@ int main(void)
 	}
 }
 
-void Task_ToggleLeds(void)
+void Task_ToggleLed3(void)
 {
 	static int i = 0;
 
@@ -95,7 +95,7 @@ ISR(TIMER1_COMPA_vect)
 	}
 
 #ifndef CONFIG_SCHED
-	Task_ToggleLeds();
+	Task_ToggleLed3();
 #endif
 #ifdef CONFIG_SCHED
 	sched_update();
