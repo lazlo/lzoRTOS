@@ -54,14 +54,18 @@ static int lsh_strncmp(char *s1, char *s2, const int limit)
 
 static void lsh_cmd_help(void)
 {
-#if 0
+#ifdef CONFIG_NET
 	lsh_puts(" arp\r\n");
+#endif
+#ifdef CONFIG_FS
 	lsh_puts(" cat\r\n");
 	lsh_puts(" cd\r\n");
 	lsh_puts(" cp\r\n");
 	lsh_puts(" dd\r\n");
 	lsh_puts(" du\r\n");
 	lsh_puts(" df\r\n");
+#endif
+#if 0
 	lsh_puts(" echo\r\n");
 	lsh_puts(" env\r\n");
 	lsh_puts(" free\r\n");
@@ -70,34 +74,63 @@ static void lsh_cmd_help(void)
 	lsh_puts(" head\r\n");
 #endif
 	lsh_puts(" help\r\n");
-#if 0
+#ifdef CONFIG_NET
 	lsh_puts(" hostname\r\n");
+#endif
+#if 0
 	lsh_puts(" hwclock\r\n");
+#endif
+#ifdef CONFIG_I2C
 	lsh_puts(" i2c\r\n");
+#endif
+#ifdef CONFIG_NET
 	lsh_puts(" ifconfig\r\n");
+#endif
+#ifdef CONFIG_SCHED
 	lsh_puts(" kill\r\n");
+#endif
+#if 0
 	lsh_puts(" less\r\n");
+#endif
+#ifdef CONFIG_FS
 	lsh_puts(" ls\r\n");
 	lsh_puts(" mount\r\n");
 	lsh_puts(" mkdir\r\n");
 	lsh_puts(" mv\r\n");
+#endif
+#ifdef CONFIG_NET
 	lsh_puts(" netstat\r\n");
 	lsh_puts(" ping\r\n");
 #endif
 #ifdef CONFIG_SCHED
 	lsh_puts(" ps\r\n");
 #endif
-#if 0
+#ifdef CONFIG_FS
 	lsh_puts(" pwd\r\n");
 	lsh_puts(" rm\r\n");
 	lsh_puts(" rmdir\r\n");
+#endif
+#ifdef CONFIG_NET
 	lsh_puts(" ss\r\n");
+#endif
+#ifdef CONFIG_FS
 	lsh_puts(" strings\r\n");
 	lsh_puts(" tail\r\n");
+#endif
+#ifdef CONFIG_NET
+	lsh_puts(" telnet\r\n");
+#endif
+#ifdef CONFIG_FS
 	lsh_puts(" touch\r\n");
 	lsh_puts(" tty\r\n");
+#endif
+#if 0
 	lsh_puts(" uptime\r\n");
+#endif
+#ifdef CONFIG_FS
 	lsh_puts(" umount\r\n");
+#endif
+#if 0
 	lsh_puts(" uname\r\n");
 	lsh_puts(" wget\r\n");
 	lsh_puts(" xd\r\n");
