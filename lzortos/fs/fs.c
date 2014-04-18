@@ -1,6 +1,6 @@
 #include "debug.h"
 
-void fs_init(void)
+int fs_init(void)
 {
 	dbg("fs: ready!\r\n");
 }
