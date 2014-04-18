@@ -4,6 +4,7 @@
 
 #include <stdint.h>
 
+#include "config.h"
 #include "debug.h"
 #include "strutils.h"
 #include "pins.h"
