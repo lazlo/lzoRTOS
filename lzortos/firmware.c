@@ -57,11 +57,8 @@ void os_start(void)
 	dbg("os: ready!\r\n");
 }
 
-int main(void)
+void os_run(void)
 {
-	hw_init();
-	os_start();
-
 	avr_irq_enable();
 
 	while (1)
@@ -77,6 +74,13 @@ int main(void)
 		lsh();
 #endif
 	}
+}
+
+int main(void)
+{
+	hw_init();
+	os_start();
+	os_run();
 }
 
 void Task_ToggleLed3(void)
