@@ -13,6 +13,8 @@
 
 #include "avr_irq.h"
 
+#include "lsh.h"
+
 #if 0
 #ifdef CONFIG_SCHED
 /* Task list used by the simple co-operative scheduler. */
@@ -53,8 +55,6 @@ int main(void)
 	os_start();
 
 	avr_irq_enable();
-
-	#include "lsh.h"
 
 	while (1)
 	{
