@@ -21,7 +21,7 @@
 /* Hardware support **********************************************************/
 
 /* Configure 16-bit timer1 to tick every n Number of miliseconds */
-#define CONFIG_TIMER1_TICK_MS 10
+#define CONFIG_TIMER1_TICK_MS 1
 
 /* Enable support for SPI peripherals. */
 #define CONFIG_SPI
