@@ -110,6 +110,7 @@ static void lsh_cmd_help(void)
 #endif
 #ifdef CONFIG_NET
 	lsh_puts(" netstat\r\n");
+	lsh_puts(" netcat\r\n");
 	lsh_puts(" ping\r\n");
 #endif
 #ifdef CONFIG_SCHED
