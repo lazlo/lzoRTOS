@@ -4,18 +4,18 @@
 
 static void netioaddon_init_led(void)
 {
-	LED1_DDR |= (1 << LED1_OFFSET);
-	LED2_DDR |= (1 << LED2_OFFSET);
-	LED3_DDR |= (1 << LED3_OFFSET);
+	GPIO_LED1_DDR |= (1 << GPIO_LED1_OFFSET);
+	GPIO_LED2_DDR |= (1 << GPIO_LED2_OFFSET);
+	GPIO_LED3_DDR |= (1 << GPIO_LED3_OFFSET);
 
-	LED1_PORT |= (1 << LED1_OFFSET);
-	LED2_PORT |= (1 << LED2_OFFSET);
-	LED3_PORT |= (1 << LED3_OFFSET);
+	GPIO_LED1_PORT |= (1 << GPIO_LED1_OFFSET);
+	GPIO_LED2_PORT |= (1 << GPIO_LED2_OFFSET);
+	GPIO_LED3_PORT |= (1 << GPIO_LED3_OFFSET);
 }
 
 static void netioaddon_init_irda(void)
 {
-	IRDA_DDR &= ~(1 << IRDA_OFFSET);
+	GPIO_IRDA_DDR &= ~(1 << GPIO_IRDA_OFFSET);
 }
 
 static void netioaddon_init_mmcsd(void)

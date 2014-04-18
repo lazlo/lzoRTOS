@@ -65,10 +65,10 @@ void os_run(void)
 
 	while (1)
 	{
-		if (LED1_PORT & (1 << LED1_OFFSET)) {
-			LED1_PORT &= ~(1 << LED1_OFFSET);
+		if (GPIO_LED1_PORT & (1 << GPIO_LED1_OFFSET)) {
+			GPIO_LED1_PORT &= ~(1 << GPIO_LED1_OFFSET);
 		} else {
-			LED1_PORT |= (1 << LED1_OFFSET);
+			GPIO_LED1_PORT |= (1 << GPIO_LED1_OFFSET);
 		}
 #ifdef CONFIG_SCHED
 		sched_dispatch_tasks();
@@ -93,20 +93,20 @@ void Task_ToggleLed3(void)
 		i++;
 	} else {
 		i = 0;
-		if (LED3_PORT & (1 << LED3_OFFSET)) {
-			LED3_PORT &= ~(1 << LED3_OFFSET);
+		if (GPIO_LED3_PORT & (1 << GPIO_LED3_OFFSET)) {
+			GPIO_LED3_PORT &= ~(1 << GPIO_LED3_OFFSET);
 		} else {
-			LED3_PORT |= (1 << LED3_OFFSET);
+			GPIO_LED3_PORT |= (1 << GPIO_LED3_OFFSET);
 		}
 	}
 }
 
 ISR(TIMER1_COMPA_vect)
 {
-	if (LED2_PORT & (1 << LED2_OFFSET)) {
-		LED2_PORT &= ~(1 << LED2_OFFSET);
+	if (GPIO_LED2_PORT & (1 << GPIO_LED2_OFFSET)) {
+		GPIO_LED2_PORT &= ~(1 << GPIO_LED2_OFFSET);
 	} else {
-		LED2_PORT |= (1 << LED2_OFFSET);
+		GPIO_LED2_PORT |= (1 << GPIO_LED2_OFFSET);
 	}
 
 #ifndef CONFIG_SCHED
