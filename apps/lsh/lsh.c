@@ -55,7 +55,7 @@ static void lsh_parse(char *input, const int limit)
   /* split line by whitespaces */
   /* identify command */
 	if (lsh_strncmp(input, "help", CONFIG_LSH_GETLINE_NCHARS) == 0) {
-#if 1
+#if 0
 		lsh_puts(" arp\r\n");
 		lsh_puts(" cat\r\n");
 		lsh_puts(" cd\r\n");
@@ -69,7 +69,9 @@ static void lsh_parse(char *input, const int limit)
 		lsh_puts(" grep\r\n");
 		lsh_puts(" halt\r\n");
 		lsh_puts(" head\r\n");
+#endif
 		lsh_puts(" help\r\n");
+#if 0
 		lsh_puts(" hostname\r\n");
 		lsh_puts(" hwclock\r\n");
 		lsh_puts(" i2c\r\n");
