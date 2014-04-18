@@ -8,6 +8,7 @@ static void set_reload(const uint16_t reload)
 
 static void set_mode_ctc(void)
 {
+	/* Set to CTC mode */
 	TCCR1B |= (1 << WGM12);
 }
 
