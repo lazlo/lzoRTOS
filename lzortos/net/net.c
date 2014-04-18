@@ -2,7 +2,8 @@
 #include "config.h"
 #include "avr_usart.h"
 
-void net_init(void)
+int net_init(void)
 {
 	dbg("net: ready!\r\n");
+	return 0;
 }
