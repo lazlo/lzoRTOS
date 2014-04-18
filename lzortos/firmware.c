@@ -27,14 +27,15 @@ struct task g_sched_task[CONFIG_SCHED_NTASKS];
 
 void Task_ToggleLed3(void);
 
-void hw_init(void)
+int hw_init(void)
 {
 	chip_init();
 	board_init();
 	dbg("hw: ready!\r\n");
+	return 0;
 }
 
-void os_start(void)
+int os_start(void)
 {
 #ifdef CONFIG_FS
 	fs_init();
@@ -55,6 +56,7 @@ void os_start(void)
 	sched_start();
 #endif
 	dbg("os: ready!\r\n");
+	return 0;
 }
 
 void os_run(void)
