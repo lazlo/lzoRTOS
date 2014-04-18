@@ -25,9 +25,8 @@ static void set_clock(void)
 #endif
 }
 
-void avr_timer1_init(void)
+void avr_timer1_init(const int ms)
 {
-	const int ms = 4;
 	uint16_t reload;
 
 	/* calculate reload value */

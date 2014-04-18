@@ -1,3 +1,4 @@
+#include "config.h"
 #include "avr_timer.h"
 #include "avr_usart.h"
 #include "avr_spi.h"
@@ -6,7 +7,7 @@
 
 void chip_init(void)
 {
-	avr_timer1_init();
+	avr_timer1_init(CONFIG_TIMER1_TICK_MS);
 	avr_usart_init();
 	avr_spi_init();
 #ifdef CONFIG_I2C
