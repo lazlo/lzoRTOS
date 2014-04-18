@@ -3,7 +3,13 @@
 #include "pins.h"
 #include "chip.h"
 #include "avr_usart.h"
+
+/* Board specific ************************************************************/
+
 #include "netio.h"
+
+/* OS Components *************************************************************/
+
 #ifdef CONFIG_FS
 #include "fs.h"
 #endif
@@ -15,6 +21,8 @@
 #endif
 
 #include "avr_irq.h"
+
+/* Applications **************************************************************/
 
 #include "lsh.h"
 
