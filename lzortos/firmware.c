@@ -1,4 +1,5 @@
 #include "debug.h"
+#include "config.h"
 #include "pins.h"
 #include "chip.h"
 #include "avr_usart.h"
