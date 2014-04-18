@@ -18,12 +18,17 @@ static void netioaddon_init_irda(void)
 	IRDA_DDR &= ~(1 << IRDA_OFFSET);
 }
 
+static void netio_init_eth(void)
+{
+#ifdef CONFIG_SPI
+	enc28j60_init();
+#endif
+}
+
 int board_init(void)
 {
 	netioaddon_init_led();
 	netioaddon_init_irda();
-#ifdef CONFIG_SPI
-	enc28j60_init();
-#endif
+	netio_init_eth();
 	return 0;
 }
