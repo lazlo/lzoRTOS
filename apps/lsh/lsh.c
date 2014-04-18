@@ -48,65 +48,84 @@ static int lsh_strncmp(char *s1, char *s2, const int limit)
 	return 0;
 }
 
+/* Commands ******************************************************************/
+
+static void lsh_cmd_help(void)
+{
+#if 0
+	lsh_puts(" arp\r\n");
+	lsh_puts(" cat\r\n");
+	lsh_puts(" cd\r\n");
+	lsh_puts(" cp\r\n");
+	lsh_puts(" dd\r\n");
+	lsh_puts(" du\r\n");
+	lsh_puts(" df\r\n");
+	lsh_puts(" echo\r\n");
+	lsh_puts(" env\r\n");
+	lsh_puts(" free\r\n");
+	lsh_puts(" grep\r\n");
+	lsh_puts(" halt\r\n");
+	lsh_puts(" head\r\n");
+#endif
+	lsh_puts(" help\r\n");
+#if 0
+	lsh_puts(" hostname\r\n");
+	lsh_puts(" hwclock\r\n");
+	lsh_puts(" i2c\r\n");
+	lsh_puts(" ifconfig\r\n");
+	lsh_puts(" kill\r\n");
+	lsh_puts(" less\r\n");
+	lsh_puts(" ls\r\n");
+	lsh_puts(" mount\r\n");
+	lsh_puts(" mkdir\r\n");
+	lsh_puts(" mv\r\n");
+	lsh_puts(" netstat\r\n");
+	lsh_puts(" ping\r\n");
+#endif
+#ifdef CONFIG_SCHED
+	lsh_puts(" ps\r\n");
+#endif
+#if 0
+	lsh_puts(" pwd\r\n");
+	lsh_puts(" rm\r\n");
+	lsh_puts(" rmdir\r\n");
+	lsh_puts(" ss\r\n");
+	lsh_puts(" strings\r\n");
+	lsh_puts(" tail\r\n");
+	lsh_puts(" touch\r\n");
+	lsh_puts(" tty\r\n");
+	lsh_puts(" uptime\r\n");
+	lsh_puts(" umount\r\n");
+	lsh_puts(" uname\r\n");
+	lsh_puts(" wget\r\n");
+	lsh_puts(" xd\r\n");
+	lsh_puts(" mb\r\n");
+	lsh_puts(" mh\r\n");
+	lsh_puts(" mw\r\n");
+#endif
+}
+
+static void lsh_cmd_ps(void)
+{
+	int i;
+
+	lsh_puts("PID TTY TIME CMD\r\n");
+	for (i = 0; i < CONFIG_SCHED_NTASKS; i++)
+		lsh_puts("0   pts/0 00:00:00 foo\r\n");
+}
+
 /* Command line processing ***************************************************/
 
 static void lsh_parse(char *input, const int limit)
 {
-  /* split line by whitespaces */
-  /* identify command */
-	if (lsh_strncmp(input, "help", CONFIG_LSH_GETLINE_NCHARS) == 0) {
-#if 0
-		lsh_puts(" arp\r\n");
-		lsh_puts(" cat\r\n");
-		lsh_puts(" cd\r\n");
-		lsh_puts(" cp\r\n");
-		lsh_puts(" dd\r\n");
-		lsh_puts(" du\r\n");
-		lsh_puts(" df\r\n");
-		lsh_puts(" echo\r\n");
-		lsh_puts(" env\r\n");
-		lsh_puts(" free\r\n");
-		lsh_puts(" grep\r\n");
-		lsh_puts(" halt\r\n");
-		lsh_puts(" head\r\n");
+#ifdef CONFIG_SCHED
+	if (lsh_strncmp(input, "ps", limit) == 0)
+		return lsh_cmd_ps();
 #endif
-		lsh_puts(" help\r\n");
-#if 0
-		lsh_puts(" hostname\r\n");
-		lsh_puts(" hwclock\r\n");
-		lsh_puts(" i2c\r\n");
-		lsh_puts(" ifconfig\r\n");
-		lsh_puts(" kill\r\n");
-		lsh_puts(" less\r\n");
-		lsh_puts(" ls\r\n");
-		lsh_puts(" mount\r\n");
-		lsh_puts(" mkdir\r\n");
-		lsh_puts(" mv\r\n");
-		lsh_puts(" netstat\r\n");
-		lsh_puts(" ping\r\n");
-		lsh_puts(" ps\r\n");
-		lsh_puts(" pwd\r\n");
-		lsh_puts(" rm\r\n");
-		lsh_puts(" rmdir\r\n");
-		lsh_puts(" ss\r\n");
-		lsh_puts(" strings\r\n");
-		lsh_puts(" tail\r\n");
-		lsh_puts(" touch\r\n");
-		lsh_puts(" tty\r\n");
-		lsh_puts(" uptime\r\n");
-		lsh_puts(" umount\r\n");
-		lsh_puts(" uname\r\n");
-		lsh_puts(" wget\r\n");
-		lsh_puts(" xd\r\n");
-		lsh_puts(" mb\r\n");
-		lsh_puts(" mh\r\n");
-		lsh_puts(" mw\r\n");
-#endif
-	} else {
+	if (lsh_strncmp(input, "help", limit) == 0)
+		return lsh_cmd_help();
+	else
 		lsh_puts("unknown command\r\n");
-	}
-  /* verify command is known */
-  /* execute the command */
 }
 
 void lsh(void)
