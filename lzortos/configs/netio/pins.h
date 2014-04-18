@@ -71,7 +71,7 @@
 #define GPIO_I2C_SDA_DDR		DDRC
 #define GPIO_I2C_SDA_PORT		PORTC
 
-/* used by ... */
+/* used by configs/netio/netio.c */
 
 #define GPIO_DB25_D2_OFFSET		0
 #define GPIO_DB25_D2_DDR		DDRC

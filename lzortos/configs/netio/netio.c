@@ -26,6 +26,24 @@ static void netioaddon_init_rf(void)
 {
 }
 
+static void netio_init_db25(void)
+{
+	GPIO_DB25_D2_DDR |= (1 << GPIO_DB25_D2_OFFSET);
+	GPIO_DB25_D3_DDR |= (1 << GPIO_DB25_D3_OFFSET);
+	GPIO_DB25_D4_DDR |= (1 << GPIO_DB25_D4_OFFSET);
+	GPIO_DB25_D5_DDR |= (1 << GPIO_DB25_D5_OFFSET);
+
+	GPIO_DB25_D6_DDR |= (1 << GPIO_DB25_D6_OFFSET);
+	GPIO_DB25_D7_DDR |= (1 << GPIO_DB25_D7_OFFSET);
+	GPIO_DB25_D8_DDR |= (1 << GPIO_DB25_D8_OFFSET);
+	GPIO_DB25_D9_DDR |= (1 << GPIO_DB25_D9_OFFSET);
+
+	GPIO_DB25_D10_DDR |= (1 << GPIO_DB25_D10_OFFSET);
+	GPIO_DB25_D11_DDR |= (1 << GPIO_DB25_D11_OFFSET);
+	GPIO_DB25_D12_DDR |= (1 << GPIO_DB25_D12_OFFSET);
+	GPIO_DB25_D13_DDR |= (1 << GPIO_DB25_D13_OFFSET);
+}
+
 static void netio_init_eth(void)
 {
 #ifdef CONFIG_SPI
@@ -39,6 +57,7 @@ int board_init(void)
 	netioaddon_init_irda();
 	netioaddon_init_mmcsd();
 	netioaddon_init_rf();
+	netio_init_db25();
 	netio_init_eth();
 	return 0;
 }
