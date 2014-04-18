@@ -18,11 +18,9 @@
 
 #include "lsh.h"
 
-#if 0
 #ifdef CONFIG_SCHED
 /* Task list used by the simple co-operative scheduler. */
 struct task g_sched_task[CONFIG_SCHED_NTASKS];
-#endif
 #endif
 
 void Task_ToggleLed3(void);
