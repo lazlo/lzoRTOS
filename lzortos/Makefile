@@ -75,6 +75,7 @@ SRC += arch/avr/avr_adc.c
 SRC += configs/netio/netio.c
 SRC += drivers/net/enc28j60.c
 SRC += fs/fs.c
+SRC += net/net.c
 SRC += sched/sched.c
 SRC += ../apps/lsh/lsh.c
 
@@ -101,7 +102,7 @@ DEBUG = dwarf-2
 
 # List any extra directories to look for include files here.
 #     Each directory must be seperated by a space.
-EXTRAINCDIRS = include configs/netio arch/avr drivers/net fs sched libc ../apps/lsh
+EXTRAINCDIRS = include configs/netio arch/avr drivers/net fs net sched libc ../apps/lsh
 
 # Compiler flag to set the C Standard level.
 # c89   - "ANSI" C

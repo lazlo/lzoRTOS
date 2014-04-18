@@ -7,6 +7,9 @@
 #ifdef CONFIG_FS
 #include "fs.h"
 #endif
+#ifdef CONFIG_NET
+#include "net.h"
+#endif
 #ifdef CONFIG_SCHED
 #include "sched.h"
 #endif
@@ -35,6 +38,9 @@ void os_start(void)
 {
 #ifdef CONFIG_FS
 	fs_init();
+#endif
+#ifdef CONFIG_NET
+	net_init();
 #endif
 #ifdef CONFIG_SCHED
 	sched_init();

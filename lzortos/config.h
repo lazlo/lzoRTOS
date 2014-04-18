@@ -9,6 +9,9 @@
 /* Enable filesystem support. */
 //#define CONFIG_FS
 
+/* Enable netwoking support. */
+//#define CONFIG_NET
+
 /* Enable the basic co-operative scheduler. */
 #define CONFIG_SCHED
 
