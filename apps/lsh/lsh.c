@@ -67,6 +67,11 @@ static void lsh_cmd_help(void)
 #endif
 #if 0
 	lsh_puts(" echo\r\n");
+#endif
+#ifdef CONFIG_NET
+	lsh_puts(" ethtool\r\n");
+#endif
+#if 0
 	lsh_puts(" env\r\n");
 	lsh_puts(" free\r\n");
 	lsh_puts(" grep\r\n");
@@ -94,6 +99,11 @@ static void lsh_cmd_help(void)
 #endif
 #ifdef CONFIG_FS
 	lsh_puts(" ls\r\n");
+#endif
+#ifdef CONFIG_NET
+	lsh_puts(" mii-tool\r\n");
+#endif
+#ifdef CONFIG_FS
 	lsh_puts(" mount\r\n");
 	lsh_puts(" mkdir\r\n");
 	lsh_puts(" mv\r\n");
@@ -111,6 +121,7 @@ static void lsh_cmd_help(void)
 	lsh_puts(" rmdir\r\n");
 #endif
 #ifdef CONFIG_NET
+	lsh_puts(" route\r\n");
 	lsh_puts(" ss\r\n");
 #endif
 #ifdef CONFIG_FS
@@ -118,11 +129,15 @@ static void lsh_cmd_help(void)
 	lsh_puts(" tail\r\n");
 #endif
 #ifdef CONFIG_NET
+	lsh_puts(" tcpdump\r\n");
 	lsh_puts(" telnet\r\n");
 #endif
 #ifdef CONFIG_FS
 	lsh_puts(" touch\r\n");
 	lsh_puts(" tty\r\n");
+#endif
+#ifdef CONFIG_NET
+	lsh_puts(" traceroute\r\n");
 #endif
 #if 0
 	lsh_puts(" uptime\r\n");
