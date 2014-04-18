@@ -27,7 +27,7 @@ void sched_init(void)
 }
 
 /* Add a task. */
-int sched_task_add(void (*fp)(void), const int delay, const int periode)
+int sched_add_task(void (*fp)(void), const int delay, const int periode)
 {
 	int i;
 	for (i = 0; i < CONFIG_SCHED_NTASKS && g_sched_task[i].fp != 0; i++)
