@@ -9,7 +9,7 @@ static char line[CONFIG_LSH_GETLINE_NCHARS];
 
 /* IO functions **************************************************************/
 
-static void lsh_puts(char *s)
+void lsh_puts(char *s)
 {
 	while (*s)
 		uart_putc(*s++);
