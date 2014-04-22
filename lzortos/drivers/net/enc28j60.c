@@ -135,6 +135,8 @@ static void enc_gpioinit(void)
 	ENC28J60_INT_AS_INPUT;
 }
 
+/* Register Bank Selection ***************************************************/
+
 /* Select a memory bank */
 static void enc_bank(const char bank)
 {
@@ -152,6 +154,8 @@ static int enc_clkready(void)
 	return 0;
 }
 
+/* Optional ******************************************************************/
+
 /* Configure the optional clock output pin (CLKOUT).
  *
  * Paramters
@@ -163,6 +167,8 @@ static void enc_clkout(const unsigned char ps)
 	enc_bank(BANK3);
 	enc_wcr(ECOCON, regv);
 }
+
+/* Buffer ********************************************************************/
 
 /* Initialize receive buffer */
 static void enc_rxbufinit(void)
