@@ -247,8 +247,71 @@ enum enc28j60_clkout_ps {
  * MAC Register Bits
  *****************************************************************************/
 
+/* MAC Control Register 1 Bits (MACON1) */
+
+#define TXPAUS		3
+#define RXPAUS		2
+#define PASSALL		1
+#define MARXEN		0
+
+/* MAC Control Register 3 Bits (MACON3) */
+
+#define PADCFG2		7
+#define PADCFG1		6
+#define PADCFG0		5
+#define TXCRCEN		4
+#define PHDREN		3
+#define HFRMEN		2
+#define FRMLNEN		1
+#define FULDPX		0
+
+/* MAC Control Register 4 Bits (MACON4) */
+
+#define DEFER		6
+#define BPEN		5
+#define NOBKOFF		4
+
+/* MII Command Register Bits (MICMD) */
+
+#define MIISCAN		1
+#define MIIRD		0
+
+/* MII Status Register Bits (MISTAT) */
+
+#define NVALID		2
+#define SCAN		1
+#define BUSY		0
+
 /******************************************************************************
  * PHY Register Bits
  *****************************************************************************/
+
+/* Ethernet Flow Control Register Bits (EFLOCON) */
+
+#define FULDPXS		2
+#define FCEN1		1
+#define FCEN0		0
+
+/* Ethernet Receive Filter Control Register Bits (ERXFCON) */
+
+#define UCEN		7
+#define ANDOR		6
+#define CRCEN		5
+#define PMEN		4
+#define MPEN		3
+#define HTEN		2
+#define MCEN		1
+#define BCEN		0
+
+/* Ethernet Self-Test Control Register Bits (EBSTCON) */
+
+#define PSV2		7
+#define PSV1		6
+#define PSV0		5
+#define PSEL		4
+#define TMSEL1		3
+#define TMSEL0		2
+#define TME		1
+#define BISTST		0
 
 #endif /* D_ENC28J60_DEFS_H */
