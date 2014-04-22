@@ -149,6 +149,7 @@ static int enc_clkready(void)
 {
 	char s;
 	s = enc_rcr(ESTAT);
+	/* poll ESTAT.CLKRDY bit */
 	if (s & (1 << CLKRDY))
 		return 1;
 	return 0;
@@ -250,8 +251,6 @@ void enc28j60_init(void)
 	/* transmit buffer */
 	enc_txbufinit();
 	/* receive filters (ERXFCON) */
-
-	/* poll ESTAT.CLKRDY bit */
 
 	/* configure MAC registers */
 	enc_macinit();
