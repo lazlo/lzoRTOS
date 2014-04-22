@@ -168,7 +168,19 @@ static void enc_clkout(const unsigned char ps)
 	enc_wcr(ECOCON, regv);
 }
 
-/* Buffer ********************************************************************/
+/* MAC ***********************************************************************/
+
+static void enc_macinit(void)
+{
+}
+
+/* PHY ***********************************************************************/
+
+static void enc_phyinit(void)
+{
+}
+
+/* Ethernet Buffer ***********************************************************/
 
 /* Initialize receive buffer */
 static void enc_rxbufinit(void)
@@ -242,6 +254,9 @@ void enc28j60_init(void)
 	/* poll ESTAT.CLKRDY bit */
 
 	/* configure MAC registers */
+	enc_macinit();
 	/* configure PHY registers */
+	enc_phyinit();
+
 	dbg("enc28j60: ready!\r\n");
 }
