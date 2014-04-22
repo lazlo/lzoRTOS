@@ -167,40 +167,40 @@ enum enc28j60_phy_reg {
  * Common Register Bits
  *****************************************************************************/
 
-/* Interrupt Enable Register Bits (EIE) */
+/* Ethernet Interrupt Enable Register Bits (EIE) */
 
-#define INTIE		7
-#define PKTIE		6
-#define DMAIE		5
-#define LINKIE		4
-#define TXIE		3
-#define TXERIE		1
-#define RXERIE		0 /* Interrupt Enable on Receive Error */
+#define INTIE		7 /* Global INT Interrupt Enable */
+#define PKTIE		6 /* Receive Packet Pending Interrupt Enable */
+#define DMAIE		5 /* DMA Interrupt Enable */
+#define LINKIE		4 /* Link Status Change Interrupt Enable */
+#define TXIE		3 /* Transmit Enable */
+#define TXERIE		1 /* Transmit Error Interrupt Enable */
+#define RXERIE		0 /* Receive Error Interrupt Enable */
 
-/* Interrupt Flag Register Bits (EIR) */
+/* Ethernet Interrupt Request (Flag) Register Bits (EIR) */
 
-#define PKTIF		6
-#define DMAIF		5
-#define LINKIF		4
-#define TXIF		3
-#define TXERIF		1
-#define RXERIF		0
+#define PKTIF		6 /* Receive Packet Pending Interrupt Flag */
+#define DMAIF		5 /* DMA Interrupt Flag */
+#define LINKIF		4 /* Link Change Interrupt Flag */
+#define TXIF		3 /* Transmit Interrupt Flag */
+#define TXERIF		1 /* Transmit Error Interrupt Flag */
+#define RXERIF		0 /* Receive Error Interrupt Flag */
 
-/* Status Register Bits (ESTAT) */
+/* Ethernet Status Register Bits (ESTAT) */
 
-#define INT		7
-#define BUFER		6
-#define LATECOL		4
-#define RXBUSY		2
-#define TXABRT		1
-#define CLKRDY		0
+#define INT		7 /* INT Interrupt Flag */
+#define BUFER		6 /* Ethernet Buffer Error Status */
+#define LATECOL		4 /* Late Collision Error */
+#define RXBUSY		2 /* Receive Busy */
+#define TXABRT		1 /* Transmit Abort Error */
+#define CLKRDY		0 /* Clock Ready */
 
 /* Control Register 2 Bits (ECON2) */
 
-#define AUTOINC		7
-#define PKTDEC		6
-#define PWRSV		5
-#define VRPS		3
+#define AUTOINC		7 /* Automatic Buffer Pointer Increment Enable */
+#define PKTDEC		6 /* Packet Detect */
+#define PWRSV		5 /* Power Save Enable */
+#define VRPS		3 /* Voltage Regulator Power Save Enable */
 
 /* Control Register 1 Bits (ECON1) */
 
@@ -249,38 +249,42 @@ enum enc28j60_clkout_ps {
 
 /* MAC Control Register 1 Bits (MACON1) */
 
-#define TXPAUS		3
-#define RXPAUS		2
-#define PASSALL		1
-#define MARXEN		0
+#define TXPAUS		3 /* Pause Control Frame Transmission Enable */
+#define RXPAUS		2 /* Pause Control Frame Reception Enable */
+#define PASSALL		1 /* Pass All Receive Frames Enable */
+#define MARXEN		0 /* MAC Receive Enable */
 
 /* MAC Control Register 3 Bits (MACON3) */
 
 #define PADCFG2		7
 #define PADCFG1		6
 #define PADCFG0		5
-#define TXCRCEN		4
-#define PHDREN		3
-#define HFRMEN		2
-#define FRMLNEN		1
-#define FULDPX		0
+#define TXCRCEN		4 /* Transmit CRC Enable */
+#define PHDREN		3 /* Proprietary Header Enable */
+#define HFRMEN		2 /* Huge Frame Enable */
+#define FRMLNEN		1 /* Frame Length Checking Enable */
+#define FULDPX		0 /* MAC Full-Duplex Enable */
 
 /* MAC Control Register 4 Bits (MACON4) */
 
-#define DEFER		6
-#define BPEN		5
-#define NOBKOFF		4
+#define DEFER		6 /* Defer Transmission Enable */
+#define BPEN		5 /* No Backoff During Backpressure Enable */
+#define NOBKOFF		4 /* No Backoff Enable */
+
+/******************************************************************************
+ * MII Register Bits
+ *****************************************************************************/
 
 /* MII Command Register Bits (MICMD) */
 
-#define MIISCAN		1
-#define MIIRD		0
+#define MIISCAN		1 /* MII Scan Enable */
+#define MIIRD		0 /* MII Read Enable */
 
 /* MII Status Register Bits (MISTAT) */
 
-#define NVALID		2
-#define SCAN		1
-#define BUSY		0
+#define NVALID		2 /* MII Management Read Data Not Valid */
+#define SCAN		1 /* MII Management Scan Operation */
+#define BUSY		0 /* MII Management Busy */
 
 /******************************************************************************
  * Ethernet Register Bits
@@ -288,79 +292,79 @@ enum enc28j60_clkout_ps {
 
 /* Ethernet Flow Control Register Bits (EFLOCON) */
 
-#define FULDPXS		2
+#define FULDPXS		2 /* Read-Only MAC Full-Duplex Shadow bit */
 #define FCEN1		1
 #define FCEN0		0
 
 /* Ethernet Receive Filter Control Register Bits (ERXFCON) */
 
-#define UCEN		7
-#define ANDOR		6
-#define CRCEN		5
-#define PMEN		4
-#define MPEN		3
-#define HTEN		2
-#define MCEN		1
-#define BCEN		0
+#define UCEN		7 /* Unicast Filter Enable */
+#define ANDOR		6 /* AND/OR Filter Select */
+#define CRCEN		5 /* Post-Filter CRC Check Enable */
+#define PMEN		4 /* Pattern Match Filter Enable */
+#define MPEN		3 /* Magic Packet Filter Enable */
+#define HTEN		2 /* Hash Table Filter Enable */
+#define MCEN		1 /* Multicast Filter Enable */
+#define BCEN		0 /* Broadcast Filter Enable */
 
 /* Ethernet Self-Test Control Register Bits (EBSTCON) */
 
 #define PSV2		7
 #define PSV1		6
 #define PSV0		5
-#define PSEL		4
+#define PSEL		4 /* Port Select */
 #define TMSEL1		3
 #define TMSEL0		2
-#define TME		1
-#define BISTST		0
+#define TME		1 /* Test Mode Enable */
+#define BISTST		0 /* Built-in Self-Test Start/Busy */
 
 /******************************************************************************
  * PHY Register Bits
  *****************************************************************************/
 
-/* (PHCON1) */
+/* PHY Control Register 1 Bits (PHCON1) */
 
-#define PRST		15
-#define PLOOPBK		14
-#define PPWRSRV		11
-#define PDPXMD		8
+#define PRST		15 /* PHY Software Reset */
+#define PLOOPBK		14 /* PHY Loopback */
+#define PPWRSRV		11 /* PHY Power-Down */
+#define PDPXMD		8  /* PHY Duplex Mode */
 
-/* (PHSTAT1) */
+/* PHY Status Register 1 Bits (PHSTAT1) */
 
-#define PFDPX		12
-#define PHDPX		11
-#define LLSTAT		2
-#define JBSTAT		1
+#define PFDPX		12 /* PHY Full-Duplex Capable */
+#define PHDPX		11 /* PHY Half-Duplex Capable */
+#define LLSTAT		2  /* PHY Latching Link Status */
+#define JBSTAT		1  /* PHY Latching Jabber Status */
 
 /* PHID1 */
 
 /* PHID2 */
 
-/* (PHCON2) */
+/* PHY Control Register 2 Bits (PHCON2) */
 
-#define FRCLNK		14
-#define TXDIS		13
-#define JABBER		10
-#define HDLDIS		8
+#define FRCLNK		14 /* PHY Force Linkup */
+#define TXDIS		13 /* Twisted-Pair Transmitter Disable */
+#define JABBER		10 /* Jabber Correction Disable */
+#define HDLDIS		8  /* PHY Half-Duplex Loopback Disable */
 
-/* (PHSTAT2) */
+/* PHY Status Register 2 Bits (PHSTAT2) */
 
-#define TXSTAT		13
-#define RXSTAT		12
-#define COLSTAT		11
-#define LSTAT		10
-#define DPXSTAT		9
-#define PLRITY		5
+#define TXSTAT		13 /* PHY Transmit Status */
+#define RXSTAT		12 /* PHY Receive Status */
+#define COLSTAT		11 /* PHY Collision Status */
+#define LSTAT		10 /* PHY Link Status */
+#define DPXSTAT		9  /* PHY Duplex Status */
+#define PLRITY		5  /* Polarity Status */
 
-/* (PHIE) */
+/* PHY Interrupt Enable Register Bits (PHIE) */
 
-#define PLNKIE		4
-#define PGEIE		1
+#define PLNKIE		4 /* PHY Link Change Interrupt Enable */
+#define PGEIE		1 /* PHY Global Interrupt Enable */
 
-/* (PHIR) */
+/* PHY Interrupt Request (Flag) Register Bits (PHIR) */
 
-#define PLINKF		4
-#define PGIF		2
+#define PLINKF		4 /* PHY Link Change Interrupt Flag */
+#define PGIF		2 /* PHY Global Interrupt Flag */
 
 /* PHY Module LED Control Register Bits (PHLCON) */
 
