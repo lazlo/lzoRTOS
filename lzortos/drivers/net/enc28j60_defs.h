@@ -163,6 +163,29 @@ enum enc28j60_phy_reg {
 	PHLCON		= 0x14	/* PHY Module LED Control Register */
 };
 
+/******************************************************************************
+ * Common Register Bits
+ *****************************************************************************/
+
+/* Interrupt Enable Register Bits (EIE) */
+
+#define INTIE		7
+#define PKTIE		6
+#define DMAIE		5
+#define LINKIE		4
+#define TXIE		3
+#define TXERIE		1
+#define RXERIE		0 /* Interrupt Enable on Receive Error */
+
+/* Interrupt Flag Register Bits (EIR) */
+
+#define PKTIF		6
+#define DMAIF		5
+#define LINKIF		4
+#define TXIF		3
+#define TXERIF		1
+#define RXERIF		0
+
 /* Status Register Bits (ESTAT) */
 
 #define INT		7
@@ -171,6 +194,10 @@ enum enc28j60_phy_reg {
 #define RXBUSY		2
 #define TXABRT		1
 #define CLKRDY		0
+
+/******************************************************************************
+ * ... Register Bits
+ *****************************************************************************/
 
 /*  Clock Output Control Register Bits (COCON) */
 
