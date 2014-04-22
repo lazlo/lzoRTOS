@@ -216,7 +216,7 @@ enum enc28j60_phy_reg {
 #define BSEL_MASK	0x3
 
 /******************************************************************************
- * ... Register Bits
+ * Clock Register Bits
  *****************************************************************************/
 
 /*  Clock Output Control Register Bits (COCON) */
