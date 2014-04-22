@@ -195,6 +195,26 @@ enum enc28j60_phy_reg {
 #define TXABRT		1
 #define CLKRDY		0
 
+/* Control Register 2 Bits (ECON2) */
+
+#define AUTOINC		7
+#define PKTDEC		6
+#define PWRSV		5
+#define VRPS		3
+
+/* Control Register 1 Bits (ECON1) */
+
+#define TXRST		7
+#define RXRST		6
+#define DMAST		5
+#define CSUMEN		4
+#define RXEN		2
+#define BSEL1		1
+#define BSEL0		0
+
+#define BSEL_OFFSET	0
+#define BSEL_MASK	0x3
+
 /******************************************************************************
  * ... Register Bits
  *****************************************************************************/
@@ -218,10 +238,5 @@ enum enc28j60_clkout_ps {
 	CLKOUT_DIV4	= 4,	/* 3.125 */
 	CLKOUT_DIV8	= 5
 };
-
-/* Control Register 1 Bits (ECON1) */
-
-#define BSEL_OFFSET	0
-#define BSEL_MASK	0x3
 
 #endif /* D_ENC28J60_DEFS_H */
