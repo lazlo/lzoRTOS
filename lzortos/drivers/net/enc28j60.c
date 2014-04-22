@@ -135,29 +135,6 @@ static void enc_gpioinit(void)
 	ENC28J60_INT_AS_INPUT;
 }
 
-/* Initialize receive buffer */
-static void enc_rxbufinit(void)
-{
-#if 0
-	/* set receive buffer start poitner (ERXST) */
-	enc_spi_write(WCR, ERXSTL, 0);
-	enc_spi_write(WCR, ERXSTH, 0);
-
-	/* set receive buffer end pointer (ERXND) */
-	enc_spi_write(WCR, ERXNDL, 0xf);
-	enc_spi_write(WCR, ERXNDH, 0xff);
-
-	/* set receive buffer read pointer (ERXRDPT) */
-	enc_spi_write(WCR, ERXRDPTL, 0);
-	enc_spi_write(WCR, ERXRDPTH, 0);
-#endif
-}
-
-/* Initialize transmit buffer */
-static void enc_txbufinit(void)
-{
-}
-
 /* Select a memory bank */
 static void enc_bank(const char bank)
 {
@@ -185,6 +162,29 @@ static void enc_clkout(const unsigned char ps)
 	unsigned char regv = (ps << COCON_OFFSET) & COCON_MASK;
 	enc_bank(BANK3);
 	enc_wcr(ECOCON, regv);
+}
+
+/* Initialize receive buffer */
+static void enc_rxbufinit(void)
+{
+#if 0
+	/* set receive buffer start poitner (ERXST) */
+	enc_spi_write(WCR, ERXSTL, 0);
+	enc_spi_write(WCR, ERXSTH, 0);
+
+	/* set receive buffer end pointer (ERXND) */
+	enc_spi_write(WCR, ERXNDL, 0xf);
+	enc_spi_write(WCR, ERXNDH, 0xff);
+
+	/* set receive buffer read pointer (ERXRDPT) */
+	enc_spi_write(WCR, ERXRDPTL, 0);
+	enc_spi_write(WCR, ERXRDPTH, 0);
+#endif
+}
+
+/* Initialize transmit buffer */
+static void enc_txbufinit(void)
+{
 }
 
 /******************************************************************************
