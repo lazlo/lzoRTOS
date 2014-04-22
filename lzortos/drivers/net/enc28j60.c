@@ -140,7 +140,7 @@ static void enc_gpioinit(void)
 /* Select a memory bank */
 static void enc_bank(const char bank)
 {
-	enc_wcr(ECON1, bank);
+	enc_wcr(ECON1, (bank & BSEL_MASK) << BSEL_OFFSET);
 }
 
 /* Check if the oscillator start-up timer has expired and

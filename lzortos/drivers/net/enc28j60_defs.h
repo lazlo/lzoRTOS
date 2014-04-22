@@ -188,4 +188,9 @@ enum enc28j60_clkout_ps {
 	CLKOUT_DIV8	= 5
 };
 
+/* Control Register 1 Bits (ECON1) */
+
+#define BSEL_OFFSET	0
+#define BSEL_MASK	0x3
+
 #endif /* D_ENC28J60_DEFS_H */
