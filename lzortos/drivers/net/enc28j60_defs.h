@@ -283,7 +283,7 @@ enum enc28j60_clkout_ps {
 #define BUSY		0
 
 /******************************************************************************
- * PHY Register Bits
+ * Ethernet Register Bits
  *****************************************************************************/
 
 /* Ethernet Flow Control Register Bits (EFLOCON) */
@@ -313,5 +313,76 @@ enum enc28j60_clkout_ps {
 #define TMSEL0		2
 #define TME		1
 #define BISTST		0
+
+/******************************************************************************
+ * PHY Register Bits
+ *****************************************************************************/
+
+/* (PHCON1) */
+
+#define PRST		15
+#define PLOOPBK		14
+#define PPWRSRV		11
+#define PDPXMD		8
+
+/* (PHSTAT1) */
+
+#define PFDPX		12
+#define PHDPX		11
+#define LLSTAT		2
+#define JBSTAT		1
+
+/* PHID1 */
+
+/* PHID2 */
+
+/* (PHCON2) */
+
+#define FRCLNK		14
+#define TXDIS		13
+#define JABBER		10
+#define HDLDIS		8
+
+/* (PHSTAT2) */
+
+#define TXSTAT		13
+#define RXSTAT		12
+#define COLSTAT		11
+#define LSTAT		10
+#define DPXSTAT		9
+#define PLRITY		5
+
+/* (PHIE) */
+
+#define PLNKIE		4
+#define PGEIE		1
+
+/* (PHIR) */
+
+#define PLINKF		4
+#define PGIF		2
+
+/* PHY Module LED Control Register Bits (PHLCON) */
+
+#define LACFG3		11
+#define LACFG2		10
+#define LACFG1		9
+#define LACFG0		8
+#define LBCFG3		7
+#define LBCFG2		6
+#define LBCFG1		5
+#define LBCFG0		4
+#define LFRQ1		3
+#define LFRQ0		2
+#define STRCH		1
+
+#define LACFG_OFFSET	8
+#define LACFG_MASK	0xf
+
+#define LBCFG_OFFSET	4
+#define LBCFG_MASK	0xf
+
+#define FLRQ_OFFSET	2
+#define FLRQ_MASK	0x3
 
 #endif /* D_ENC28J60_DEFS_H */
