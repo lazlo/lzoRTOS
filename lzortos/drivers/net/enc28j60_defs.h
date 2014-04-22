@@ -163,7 +163,7 @@ enum enc28j60_phy_reg {
 	PHLCON		= 0x14	/* PHY Module LED Control Register */
 };
 
-/* Status Register Bits */
+/* Status Register Bits (ESTAT) */
 
 #define INT		7
 #define BUFER		6
@@ -172,7 +172,7 @@ enum enc28j60_phy_reg {
 #define TXABRT		1
 #define CLKRDY		0
 
-/*  Clock Output Control Register Bits */
+/*  Clock Output Control Register Bits (COCON) */
 
 #define COCON_OFFSET	0
 #define COCON_MASK	0x07
