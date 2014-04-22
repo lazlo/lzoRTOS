@@ -174,6 +174,10 @@ enum enc28j60_phy_reg {
 
 /*  Clock Output Control Register Bits (COCON) */
 
+#define COCON2		2
+#define COCON1		1
+#define COCON0		0
+
 #define COCON_OFFSET	0
 #define COCON_MASK	0x07
 
