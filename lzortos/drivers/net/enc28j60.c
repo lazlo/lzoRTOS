@@ -143,6 +143,33 @@ static void enc_bank(const char bank)
 	enc_wcr(ECON1, (bank & BSEL_MASK) << BSEL_OFFSET);
 }
 
+static void enc_bank_test(void)
+{
+	int i;
+	char c;
+	char str[3+1];
+	char reg;
+
+	for (i = 0; i < 4; i++) {
+
+		enc_bank(i);
+
+		reg = ECON1;
+		c = enc_rcr(reg);
+
+		itoa(reg, str, 16);
+		dbg("enc28J60: ");
+		dbg("*(0x");
+		dbg(str);
+		dbg(")");
+
+		itoa(c, str, 16);
+		dbg(" = ");
+		dbg(str);
+		dbg("\r\n");
+	}
+}
+
 /* Clock *********************************************************************/
 
 /* Check if the oscillator start-up timer has expired and
@@ -213,11 +240,6 @@ static void enc_phyinit(void)
 
 void enc28j60_init(void)
 {
-	int i;
-	char c;
-	char str[3+1];
-	char reg;
-
 	/* GPIO configuration */
 	enc_gpioinit();
 
@@ -227,25 +249,6 @@ void enc28j60_init(void)
 
 	/* Set clock output configuration (optional) */
 	enc_clkout(CLKOUT_DIV2);
-
-	for (i = 0; i < 4; i++) {
-
-	enc_bank(i);
-
-	reg = ECON1;
-	c = enc_rcr(reg);
-
-	itoa(reg, str, 16);
-	dbg("enc28J60: ");
-	dbg("*(0x");
-	dbg(str);
-	dbg(")");
-
-	itoa(c, str, 16);
-	dbg(" = ");
-	dbg(str);
-	dbg("\r\n");
-	}
 
 	/* receive buffer */
 	enc_bufinit();
