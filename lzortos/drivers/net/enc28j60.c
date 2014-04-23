@@ -143,6 +143,8 @@ static void enc_bank(const char bank)
 	enc_wcr(ECON1, (bank & BSEL_MASK) << BSEL_OFFSET);
 }
 
+/* Clock *********************************************************************/
+
 /* Check if the oscillator start-up timer has expired and
  * the device is ready to perform regular operation */
 static int enc_clkready(void)
