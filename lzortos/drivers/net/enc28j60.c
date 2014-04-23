@@ -243,16 +243,18 @@ void enc28j60_init(void)
 	/* GPIO configuration */
 	enc_gpioinit();
 
-	/* Wait for the Oscillator Start-Up timer to expire */
-	while (!enc_clkready())
-		;
-
 	/* Set clock output configuration (optional) */
 	enc_clkout(CLKOUT_DIV2);
 
 	/* receive buffer */
 	enc_bufinit();
+
 	/* receive filters (ERXFCON) */
+
+	/* Wait for the Oscillator Start-Up timer to expire
+	 * so MAC and PHY can be initialized. */
+	while (!enc_clkready())
+		;
 
 	/* configure MAC registers */
 	enc_macinit();
