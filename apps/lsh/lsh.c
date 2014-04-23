@@ -161,6 +161,8 @@ static void lsh_cmd_help(void)
 static void lsh_parse(char *input, const int limit)
 {
 #ifdef CONFIG_SCHED
+	if (lsh_strncmp(input, "kill", limit) == 0)
+		return lsh_cmd_kill();
 	if (lsh_strncmp(input, "ps", limit) == 0)
 		return lsh_cmd_ps();
 #endif

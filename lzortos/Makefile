@@ -79,6 +79,7 @@ SRC += net/net.c
 SRC += sched/sched.c
 SRC += ../apps/lsh/lsh.c
 SRC += ../apps/lsh/lsh_cmd_ps.c
+SRC += ../apps/lsh/lsh_cmd_kill.c
 
 # List Assembler source files here.
 # Make them always end in a capital .S.  Files ending in a lowercase .s
