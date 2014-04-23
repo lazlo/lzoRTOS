@@ -183,8 +183,12 @@ static void enc_phyinit(void)
 
 /* Ethernet Buffer ***********************************************************/
 
-/* Initialize receive buffer */
-static void enc_rxbufinit(void)
+/* Initialize the ethernet buffer.
+ *
+ * Will configure the size of the receive buffer. The remaining space will be
+ * used as the transmission buffer.
+ */
+static void enc_bufinit(void)
 {
 #if 0
 	/* set receive buffer start poitner (ERXST) */
@@ -199,11 +203,6 @@ static void enc_rxbufinit(void)
 	enc_spi_write(WCR, ERXRDPTL, 0);
 	enc_spi_write(WCR, ERXRDPTH, 0);
 #endif
-}
-
-/* Initialize transmit buffer */
-static void enc_txbufinit(void)
-{
 }
 
 /******************************************************************************
@@ -247,9 +246,7 @@ void enc28j60_init(void)
 	}
 
 	/* receive buffer */
-	enc_rxbufinit();
-	/* transmit buffer */
-	enc_txbufinit();
+	enc_bufinit();
 	/* receive filters (ERXFCON) */
 
 	/* configure MAC registers */
