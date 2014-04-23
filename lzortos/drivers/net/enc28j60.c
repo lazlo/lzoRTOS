@@ -169,18 +169,6 @@ static void enc_clkout(const unsigned char ps)
 	enc_wcr(ECOCON, regv);
 }
 
-/* MAC ***********************************************************************/
-
-static void enc_macinit(void)
-{
-}
-
-/* PHY ***********************************************************************/
-
-static void enc_phyinit(void)
-{
-}
-
 /* Ethernet Buffer ***********************************************************/
 
 /* Initialize the ethernet buffer.
@@ -203,6 +191,18 @@ static void enc_bufinit(void)
 	enc_spi_write(WCR, ERXRDPTL, 0);
 	enc_spi_write(WCR, ERXRDPTH, 0);
 #endif
+}
+
+/* MAC ***********************************************************************/
+
+static void enc_macinit(void)
+{
+}
+
+/* PHY ***********************************************************************/
+
+static void enc_phyinit(void)
+{
 }
 
 /******************************************************************************
