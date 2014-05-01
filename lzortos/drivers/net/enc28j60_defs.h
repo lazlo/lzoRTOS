@@ -208,7 +208,7 @@ enum enc28j60_phy_reg {
 #define RXRST		6
 #define DMAST		5
 #define CSUMEN		4
-#define RXEN		2
+#define ERXEN		2
 #define BSEL1		1
 #define BSEL0		0
 
