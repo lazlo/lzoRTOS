@@ -420,63 +420,46 @@ static unsigned short enc_phy_regread(const unsigned char reg)
 	unsigned short rv;
 
 	/* Select bank 2 for access to MIREGADR and MICMD */
-
-	enc_bank(BANK2);
-
 	/* Write PHY register address */
-
-	enc_wcr(MIREGADR, reg);
-
 	/* Start the read operation */
 
+	enc_bank(BANK2);
+	enc_wcr(MIREGADR, reg);
 	enc_bfs(MICMD, (1 << MIIRD));
 
 	/* Select bank 3 for access to MISTAT */
-
-	enc_bank(BANK3);
-
 	/* Wait until ready */
 
+	enc_bank(BANK3);
 	while (enc_rcr(MISTAT) & (1 << BUSY))
 		;
 
 	/* Switch back to bank 2 */
-
-	enc_bank(BANK2);
-
 	/* Clear the read operation bit */
-
-	enc_bfc(MICMD, (1 << MIIRD));
-
 	/* Read register */
 
+	enc_bank(BANK2);
+	enc_bfc(MICMD, (1 << MIIRD));
 	rv = enc_rcr(MIRDL);
 	rv |= (enc_rcr(MIRDH) << 8);
-
 	return rv;
 }
 
 static void enc_phy_regwrite(const unsigned char reg, const unsigned short v)
 {
 	/* Select bank 2 for access to MIREGADR */
-
-	enc_bank(BANK2);
-
 	/* Write PHY register address */
-
-	enc_wcr(MIREGADR, reg);
-
 	/* Write the register value */
 
+	enc_bank(BANK2);
+	enc_wcr(MIREGADR, reg);
 	enc_wcr(MIWRL, v);
 	enc_wcr(MIWRH, v >> 8); /* Writing this reg starts the operation */
 
 	/* Select bank 3 for access to MISTAT */
-
-	enc_bank(BANK3);
-
 	/* Wait until ready */
 
+	enc_bank(BANK3);
 	while (enc_rcr(MISTAT) & (1 << BUSY))
 		;
 }
