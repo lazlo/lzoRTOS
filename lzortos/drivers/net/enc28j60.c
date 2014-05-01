@@ -224,7 +224,7 @@ static void enc_cfg_dump(const unsigned short rxbufstart,
 	if (fd)
 		dbg("full");
 	else
-		dbg("hald");
+		dbg("half");
 	dbg("\r\n");
 }
 
