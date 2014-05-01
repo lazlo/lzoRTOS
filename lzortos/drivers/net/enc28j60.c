@@ -311,7 +311,8 @@ static void enc_macinit(unsigned char hwaddr[6],
 	/* Configure non-Back-to-Back Inter-Packet gap */
 
 	enc_wcr(MAIPGL, 0x12);
-	if (fd)
+
+	if (!fd)
 		enc_wcr(MAIPGH, 0x0c);
 
 	/*--- Collision -----------------------------------------------------*/
