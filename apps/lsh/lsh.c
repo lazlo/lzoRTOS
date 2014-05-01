@@ -125,6 +125,9 @@ static void lsh_cmd_help(void)
 	lsh_puts(" route\r\n");
 	lsh_puts(" ss\r\n");
 #endif
+#ifdef CONFIG_SPI
+	lsh_puts(" spi\r\n");
+#endif
 #ifdef CONFIG_FS
 	lsh_puts(" strings\r\n");
 	lsh_puts(" tail\r\n");
@@ -165,6 +168,10 @@ static void lsh_parse(char *input, const int limit)
 		return lsh_cmd_kill();
 	if (lsh_strncmp(input, "ps", limit) == 0)
 		return lsh_cmd_ps();
+#endif
+#ifdef CONFIG_SPI
+	if (lsh_strncmp(input, "spi", limit) == 0)
+		return lsh_cmd_spi();
 #endif
 	if (lsh_strncmp(input, "help", limit) == 0)
 		return lsh_cmd_help();

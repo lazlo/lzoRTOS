@@ -3,5 +3,6 @@
 
 void lsh_cmd_ps(void);
 void lsh_cmd_kill(void);
+void lsh_cmd_spi(void);
 
 #endif /* D_LSH_CMD_H */
