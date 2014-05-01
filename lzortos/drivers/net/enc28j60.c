@@ -143,18 +143,16 @@ static void enc_bank(const char bank)
 	enc_wcr(ECON1, (bank & BSEL_MASK) << BSEL_OFFSET);
 }
 
-static void enc_bank_test(void)
+static void enc_bank_test(const char reg)
 {
 	int i;
 	char c;
 	char str[3+1];
-	char reg;
 
 	for (i = 0; i < 4; i++) {
 
 		enc_bank(i);
 
-		reg = 0x19;
 		c = enc_rcr(reg);
 
 		itoa(reg, str, 16);
@@ -533,7 +531,7 @@ void enc28j60_init(unsigned char hwaddr[6],
 	/* GPIO configuration */
 	enc_gpioinit();
 
-	enc_bank_test();
+	enc_bank_test(0x19);
 
 	/* Set clock output configuration (optional) */
 	enc_clkout(CLKOUT_DIV2);
