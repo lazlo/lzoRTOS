@@ -1,6 +1,8 @@
 #ifndef D_SCHED_H
 #define D_SCHED_H
 
+#ifdef CONFIG_SCHED
+
 struct task {
 	void (*fp)(void);
 	int delay;
@@ -18,4 +20,5 @@ void sched_update(void);
 
 void sched_dispatch_tasks(void);
 
+#endif /* CONFIG_SCHED */
 #endif /* D_SCHED_H */
