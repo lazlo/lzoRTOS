@@ -230,6 +230,30 @@ static void enc_bufinit(const unsigned short rxbufstart,
 
 /* MAC ***********************************************************************/
 
+static void enc_mac_setframelen(const unsigned short framelen)
+{
+	/* Select bank 2 for access to MAMXFLL and MAMXFLH */
+	enc_bank(BANK2);
+
+	/* Set Maximum Frame Lenght */
+	enc_wcr(MAMXFLL, framelen);
+	enc_wcr(MAMXFLH, framelen >> 8);
+}
+
+static void enc_mac_sethwaddr(unsigned char hwaddr[6])
+{
+	/* Select bank 3 for access to MAADR registers */
+	enc_bank(BANK3);
+
+	/* Write MAC address */
+	enc_wcr(MAADR1, hwaddr[0]);
+	enc_wcr(MAADR2, hwaddr[1]);
+	enc_wcr(MAADR3, hwaddr[2]);
+	enc_wcr(MAADR4, hwaddr[3]);
+	enc_wcr(MAADR5, hwaddr[4]);
+	enc_wcr(MAADR6, hwaddr[5]);
+}
+
 /* Send MAC Initialization Settings */
 
 static void enc_macinit(unsigned char hwaddr[6],
@@ -304,9 +328,7 @@ static void enc_macinit(unsigned char hwaddr[6],
 
 	/*--- Frame Lenght --------------------------------------------------*/
 
-	/* Set Maximum Frame Lenght */
-	enc_wcr(MAMXFLL, framelen);
-	enc_wcr(MAMXFLH, framelen >> 8);
+	enc_mac_setframelen(framelen);
 
 	/*--- Inter-Packet Gap ----------------------------------------------*/
 
@@ -332,16 +354,7 @@ static void enc_macinit(unsigned char hwaddr[6],
 
 	/*--- MAC Address ---------------------------------------------------*/
 
-	/* Select bank 3 for access to MAADR registers */
-	enc_bank(BANK3);
-
-	/* Write MAC address */
-	enc_wcr(MAADR1, hwaddr[0]);
-	enc_wcr(MAADR2, hwaddr[1]);
-	enc_wcr(MAADR3, hwaddr[2]);
-	enc_wcr(MAADR4, hwaddr[3]);
-	enc_wcr(MAADR5, hwaddr[4]);
-	enc_wcr(MAADR6, hwaddr[5]);
+	enc_mac_sethwaddr(hwaddr);
 }
 
 /* PHY ***********************************************************************/
