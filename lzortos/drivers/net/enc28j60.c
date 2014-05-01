@@ -547,8 +547,6 @@ void enc28j60_init(unsigned char hwaddr[6],
 	unsigned short rxbufstart = 0x1FF;
 	unsigned short rxbufend = 0x1FFF;
 
-	enc_cfg_dump(rxbufstart, rxbufend, hwaddr, framelen, fd);
-
 	/* GPIO configuration */
 	enc_gpioinit();
 
@@ -571,6 +569,27 @@ void enc28j60_init(unsigned char hwaddr[6],
 	enc_macinit(hwaddr, framelen, fd);
 	/* configure PHY registers */
 	enc_phyinit(fd);
+
+#if 0
+	enc_cfg_dump(rxbufstart, rxbufend, hwaddr, framelen, fd);
+#else
+	unsigned short testrxbufstart = 0;
+	unsigned short testrxbufend = 0;
+	unsigned char testhwaddr[6];
+	unsigned short testframelen = 0;
+	unsigned char i;
+	for (i = 0; i < 6; i++)
+		testhwaddr[i] = 0;
+
+	testrxbufstart = enc_getrxbufstart();
+	testrxbufend = enc_getrxbufend();
+	enc_mac_gethwaddr(testhwaddr);
+	testframelen = enc_mac_getframelen();
+
+	enc_cfg_dump(testrxbufstart, testrxbufend,
+			testhwaddr, testframelen, fd);
+#endif
+
 
 	dbg("enc28j60: ready!\r\n");
 }
