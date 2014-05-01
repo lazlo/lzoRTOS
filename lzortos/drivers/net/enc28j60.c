@@ -170,6 +170,64 @@ static void enc_bank_test(void)
 	}
 }
 
+/* Misc **********************************************************************/
+
+static void enc_cfg_dump(const unsigned short rxbufstart,
+			const unsigned short rxbufend,
+			unsigned char hwaddr[6],
+			unsigned short framelen,
+			unsigned char fd)
+{
+	char str_rxbufstart[5];
+	char str_rxbufend[5];
+	char str_hwaddr[6][3];
+	char str_framelen[5];
+
+	itoa(rxbufstart, str_rxbufstart, 16);
+	itoa(rxbufend, str_rxbufend, 16);
+	itoa(framelen, str_framelen, 10);
+
+	itoa(hwaddr[5], str_hwaddr[5], 16);
+	itoa(hwaddr[4], str_hwaddr[4], 16);
+	itoa(hwaddr[3], str_hwaddr[3], 16);
+	itoa(hwaddr[2], str_hwaddr[2], 16);
+	itoa(hwaddr[1], str_hwaddr[1], 16);
+	itoa(hwaddr[0], str_hwaddr[0], 16);
+
+	dbg("enc28j60: rxbufstart: 0x");
+	dbg(str_rxbufstart);
+	dbg("\r\n");
+
+	dbg("enc28j60: rxbufend:   0x");
+	dbg(str_rxbufend);
+	dbg("\r\n");
+
+	dbg("enc28j60: hwaddr: ");
+	dbg(str_hwaddr[5]);
+	dbg(":");
+	dbg(str_hwaddr[4]);
+	dbg(":");
+	dbg(str_hwaddr[3]);
+	dbg(":");
+	dbg(str_hwaddr[2]);
+	dbg(":");
+	dbg(str_hwaddr[1]);
+	dbg(":");
+	dbg(str_hwaddr[0]);
+	dbg("\r\n");
+
+	dbg("enc28j60: framelen:   ");
+	dbg(str_framelen);
+	dbg("\r\n");
+
+	dbg("enc28j60: duplex:     ");
+	if (fd)
+		dbg("full");
+	else
+		dbg("hald");
+	dbg("\r\n");
+}
+
 /* Clock *********************************************************************/
 
 /* Check if the oscillator start-up timer has expired and
@@ -469,6 +527,8 @@ void enc28j60_init(unsigned char hwaddr[6],
 {
 	unsigned short rxbufstart = 0x1FF;
 	unsigned short rxbufend = 0x1FFF;
+
+	enc_cfg_dump(rxbufstart, rxbufend, hwaddr, framelen, fd);
 
 	/* GPIO configuration */
 	enc_gpioinit();
