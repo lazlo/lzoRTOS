@@ -346,8 +346,104 @@ static void enc_macinit(unsigned char hwaddr[6],
 
 /* PHY ***********************************************************************/
 
-static void enc_phyinit(void)
+static unsigned short enc_phy_regread(const unsigned char reg)
 {
+	unsigned short rv;
+
+	/* Select bank 2 for access to MIREGADR and MICMD */
+
+	enc_bank(BANK2);
+
+	/* Write PHY register address */
+
+	enc_wcr(MIREGADR, reg);
+
+	/* Start the read operation */
+
+	enc_bfs(MICMD, (1 << MIIRD));
+
+	/* Select bank 3 for access to MISTAT */
+
+	enc_bank(BANK3);
+
+	/* Wait until ready */
+
+	while (enc_rcr(MISTAT) & (1 << BUSY))
+		;
+
+	/* Switch back to bank 2 */
+
+	enc_bank(BANK2);
+
+	/* Clear the read operation bit */
+
+	enc_bfc(MICMD, (1 << MIIRD));
+
+	/* Read register */
+
+	rv = enc_rcr(MIRDL);
+	rv |= (enc_rcr(MIRDH) << 8);
+
+	return rv;
+}
+
+static void enc_phy_regwrite(const unsigned char reg, const unsigned short v)
+{
+	/* Select bank 2 for access to MIREGADR */
+
+	enc_bank(BANK2);
+
+	/* Write PHY register address */
+
+	enc_wcr(MIREGADR, reg);
+
+	/* Write the register value */
+
+	enc_wcr(MIWRL, v);
+	enc_wcr(MIWRH, v >> 8); /* Writing this reg starts the operation */
+
+	/* Select bank 3 for access to MISTAT */
+
+	enc_bank(BANK3);
+
+	/* Wait until ready */
+
+	while (enc_rcr(MISTAT) & (1 << BUSY))
+		;
+}
+
+static void enc_phyinit(const unsigned char fd)
+{
+	unsigned short v;
+
+	/* Set duplex mode */
+
+	if (fd) {
+		v = 0;
+		v |= (1 << PDPXMD);
+		enc_phy_regwrite(PHCON1, v);
+	}
+
+	/* Disable loopback for half-duplex */
+
+	if (!fd) {
+		v = 0;
+		v |= (1 << HDLDIS);
+		enc_phy_regwrite(PHCON2, v);
+	}
+
+	/* Configure LEDs */
+
+	v = enc_phy_regread(PHLCON);
+
+	/* LED A (yellow) */
+	v &= ~LACFG_MASK;
+	v |= (0x8 << LACFG_OFFSET) & LACFG_MASK;
+	/* LED B (green) */
+	v &= ~LBCFG_MASK;
+	v |= (0x8 << LBCFG_OFFSET) & LBCFG_MASK;
+
+	enc_phy_regwrite(PHLCON, v);
 }
 
 /******************************************************************************
@@ -380,7 +476,7 @@ void enc28j60_init(unsigned char hwaddr[6],
 	/* configure MAC registers */
 	enc_macinit(hwaddr, framelen, fd);
 	/* configure PHY registers */
-	enc_phyinit();
+	enc_phyinit(fd);
 
 	dbg("enc28j60: ready!\r\n");
 }
