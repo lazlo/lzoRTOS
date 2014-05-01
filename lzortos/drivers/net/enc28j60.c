@@ -256,6 +256,24 @@ static void enc_clkout(const unsigned char ps)
 
 /* Ethernet Buffer ***********************************************************/
 
+static unsigned short enc_getrxbufstart(void)
+{
+	unsigned short start = 0;
+	enc_bank(BANK0);
+	start |= enc_rcr(ERXSTL);
+	start |= enc_rcr(ERXSTH) << 8;
+	return start;
+}
+
+static unsigned short enc_getrxbufend(void)
+{
+	unsigned short end = 0;
+	enc_bank(BANK0);
+	end |= enc_rcr(ERXNDL);
+	end |= enc_rcr(ERXNDH) << 8;
+	return end;
+}
+
 /* Initialize the ethernet buffer.
  *
  * Will configure the size of the receive buffer. The remaining space will be
@@ -296,6 +314,15 @@ static void enc_mac_setframelen(const unsigned short framelen)
 	enc_wcr(MAMXFLH, framelen >> 8);
 }
 
+static unsigned short enc_mac_getframelen(void)
+{
+	unsigned short len = 0;
+	enc_bank(BANK2);
+	len |= enc_rcr(MAMXFLL);
+	len |= enc_rcr(MAMXFLH) << 8;
+	return len;
+}
+
 static void enc_mac_sethwaddr(unsigned char hwaddr[6])
 {
 	/* Select bank 3 for access to MAADR registers */
@@ -308,6 +335,17 @@ static void enc_mac_sethwaddr(unsigned char hwaddr[6])
 	enc_wcr(MAADR4, hwaddr[3]);
 	enc_wcr(MAADR5, hwaddr[4]);
 	enc_wcr(MAADR6, hwaddr[5]);
+}
+
+static void enc_mac_gethwaddr(unsigned char hwaddr[6])
+{
+	enc_bank(BANK3);
+	hwaddr[0] = enc_rcr(MAADR1);
+	hwaddr[1] = enc_rcr(MAADR2);
+	hwaddr[2] = enc_rcr(MAADR3);
+	hwaddr[3] = enc_rcr(MAADR4);
+	hwaddr[4] = enc_rcr(MAADR5);
+	hwaddr[5] = enc_rcr(MAADR6);
 }
 
 /* Send MAC Initialization Settings */
