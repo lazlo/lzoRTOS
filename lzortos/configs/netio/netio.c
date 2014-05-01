@@ -67,7 +67,7 @@ int board_init(void)
 	hwaddr[5] = 0xEE;
 
 	framelen = 1518;
-	fd = 1;
+	fd = 0;
 
 	netioaddon_init_led();
 	netioaddon_init_irda();
