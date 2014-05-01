@@ -544,7 +544,7 @@ void enc28j60_init(unsigned char hwaddr[6],
 		const unsigned short framelen,
 		const unsigned char fd)
 {
-	unsigned short rxbufstart = 0x1FF;
+	unsigned short rxbufstart = 0x1416;
 	unsigned short rxbufend = 0x1FFF;
 
 	/* GPIO configuration */
