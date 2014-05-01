@@ -265,6 +265,28 @@ enum enc28j60_clkout_ps {
 #define FRMLNEN		1 /* Frame Length Checking Enable */
 #define FULDPX		0 /* MAC Full-Duplex Enable */
 
+#define PADCFG_OFFSET	5
+#define PADCFG_MASK	0xE0
+
+/* Automatic Pad and CRC Configuration */
+
+/* 0 = No automatic padding of short frames
+ * 1 = All short frames will be zero padded to 60 bytes and a
+ *     valid CRC will then be appended
+ * 3 = All short frames will be zero padded tp 64 bytes and a
+ *     valid CRC will then be appended
+ * 5 = MAC will automatically detect VLAN Protocol frames which
+ *     have a 0x8100 type field and automatically pad to 64 bytes.
+ *     If the frame is not a VLAN frame, it will be padded 60 bytes.
+ *     After padding, a valid CRC will be appended. */
+
+enum enc28j60_padcfg {
+	PADCFG_NOPAD			= 0,
+	PADCFG_PAD60CRC			= 1,
+	PADCFG_PAD64CRC			= 3,
+	PADCFG_PADVLAN64PLAIN60CRC	= 5,
+};
+
 /* MAC Control Register 4 Bits (MACON4) */
 
 #define DEFER		6 /* Defer Transmission Enable */

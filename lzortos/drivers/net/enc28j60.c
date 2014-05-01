@@ -261,14 +261,14 @@ static void enc_macinit(unsigned char hwaddr[6],
 
 	/*--- Configure MACON3 ----------------------------------------------*/
 
+	/* TODO use func arg */
+	enum enc28j60_padcfg padcfg = PADCFG_PAD60CRC;
+
 	v = 0;
 
 	/* Setup Automatic Pad and CRC Configuration bits */
 
-	/* TODO use func arg */
-	v |= (1 << PADCFG2);
-	v |= (1 << PADCFG1);
-	v |= (1 << PADCFG0);
+	v |= (padcfg << PADCFG_OFFSET) & PADCFG_MASK;
 
 	/* Make MAC append valid CRC to all frames transmitted */
 
