@@ -164,7 +164,7 @@ static void enc_bank_test(void)
 		dbg(")");
 
 		itoa(c, str, 16);
-		dbg(" = ");
+		dbg(" = 0x");
 		dbg(str);
 		dbg("\r\n");
 	}
