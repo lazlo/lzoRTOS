@@ -154,7 +154,7 @@ static void enc_bank_test(void)
 
 		enc_bank(i);
 
-		reg = ECON1;
+		reg = 0x19;
 		c = enc_rcr(reg);
 
 		itoa(reg, str, 16);
@@ -532,6 +532,8 @@ void enc28j60_init(unsigned char hwaddr[6],
 
 	/* GPIO configuration */
 	enc_gpioinit();
+
+	enc_bank_test();
 
 	/* Set clock output configuration (optional) */
 	enc_clkout(CLKOUT_DIV2);
