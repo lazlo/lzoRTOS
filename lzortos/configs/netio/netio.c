@@ -44,20 +44,36 @@ static void netio_init_db25(void)
 	GPIO_DB25_D13_DDR |= (1 << GPIO_DB25_D13_OFFSET);
 }
 
-static void netio_init_eth(void)
+static void netio_init_eth(unsigned char hwaddr[6],
+				unsigned short framelen,
+				unsigned char fd)
 {
 #ifdef CONFIG_SPI
-	enc28j60_init();
+	enc28j60_init(hwaddr, framelen, fd);
 #endif
 }
 
 int board_init(void)
 {
+	unsigned char hwaddr[6];
+	unsigned short framelen;
+	unsigned char fd;
+
+	hwaddr[0] = 0x00;
+	hwaddr[1] = 0xAA;
+	hwaddr[2] = 0xBB;
+	hwaddr[3] = 0xCC;
+	hwaddr[4] = 0xDD;
+	hwaddr[5] = 0xEE;
+
+	framelen = 1518;
+	fd = 1;
+
 	netioaddon_init_led();
 	netioaddon_init_irda();
 	netioaddon_init_mmcsd();
 	netioaddon_init_rf();
 	netio_init_db25();
-	netio_init_eth();
+	netio_init_eth(hwaddr, framelen, fd);
 	return 0;
 }

@@ -224,8 +224,117 @@ static void enc_bufinit(void)
 
 /* MAC ***********************************************************************/
 
-static void enc_macinit(void)
+/* Send MAC Initialization Settings */
+
+static void enc_macinit(unsigned char hwaddr[6],
+			const unsigned short framelen,
+			const unsigned char fd)
 {
+	unsigned char v;
+
+	/* Select bank 2 for access to MACON1, MACON3, MACON4, MABBIPG,
+	 * MAIPGL, MAIPGH, MAMXFLL, MAMXFLH */
+
+	enc_bank(BANK2);
+
+	/*--- Configure MACON1 ----------------------------------------------*/
+
+	v = 0;
+
+	if (fd) {
+		/* Allow the MAC to transmit pause control frames (needed for
+		 * flow control in full duplex) */
+
+		v |= (1 << TXPAUS);
+
+		/* Inhibit transmissions when pause control frames are received
+		 * (normal operation) */
+
+		v |= (1 << RXPAUS);
+	}
+
+	/* Enable packets to be received by the MAC */
+
+	v |= (1 << MARXEN);
+
+	enc_wcr(MACON1, v);
+
+	/*--- Configure MACON3 ----------------------------------------------*/
+
+	v = 0;
+
+	/* Setup Automatic Pad and CRC Configuration bits */
+
+	/* TODO use func arg */
+	v |= (1 << PADCFG2);
+	v |= (1 << PADCFG1);
+	v |= (1 << PADCFG0);
+
+	/* Make MAC append valid CRC to all frames transmitted */
+
+	/* TODO use func arg */
+	v |= (1 << TXCRCEN);
+
+	/* Set duplex mode */
+
+	if (fd)
+		v |= (1 << FULDPX);
+
+	enc_wcr(MACON3, v);
+
+	/*--- Configure MACON4 ----------------------------------------------*/
+
+	v = 0;
+
+	/* Adjust transmission behavior when half-duplex is used */
+
+	if (!fd) {
+		/* When the medium is occupied, the MAC will wait indefinitley
+		 * for it to become free when attempting to transmit. */
+		v |= (1 << DEFER);
+
+		enc_wcr(MACON4, v);
+	}
+
+	/*--- Frame Lenght --------------------------------------------------*/
+
+	/* Set Maximum Frame Lenght */
+	enc_wcr(MAMXFLL, framelen);
+	enc_wcr(MAMXFLH, framelen >> 8);
+
+	/*--- Inter-Packet Gap ----------------------------------------------*/
+
+	/* Configure Back-to-Back Inter-Packet gap */
+
+	enc_wcr(MABBIPG, (fd ? 0x15 : 0x12));
+
+	/* Configure non-Back-to-Back Inter-Packet gap */
+
+	enc_wcr(MAIPGL, 0x12);
+	if (fd)
+		enc_wcr(MAIPGH, 0x0c);
+
+	/*--- Collision -----------------------------------------------------*/
+
+	if (!fd) {
+		/* Set Retransmission and Collision window */
+		/* TODO use func arg */
+		enc_wcr(MACLCON1, 0);
+		enc_wcr(MACLCON2, 0);
+	}
+
+	/*--- MAC Address ---------------------------------------------------*/
+
+	/* Select bank 3 for access to MAADR registers */
+	enc_bank(BANK3);
+
+	/* Write MAC address */
+	enc_wcr(MAADR1, hwaddr[0]);
+	enc_wcr(MAADR2, hwaddr[1]);
+	enc_wcr(MAADR3, hwaddr[2]);
+	enc_wcr(MAADR4, hwaddr[3]);
+	enc_wcr(MAADR5, hwaddr[4]);
+	enc_wcr(MAADR6, hwaddr[5]);
 }
 
 /* PHY ***********************************************************************/
@@ -238,7 +347,9 @@ static void enc_phyinit(void)
  * Public functions
  ******************************************************************************/
 
-void enc28j60_init(void)
+void enc28j60_init(unsigned char hwaddr[6],
+		const unsigned short framelen,
+		const unsigned char fd)
 {
 	/* GPIO configuration */
 	enc_gpioinit();
@@ -257,7 +368,7 @@ void enc28j60_init(void)
 		;
 
 	/* configure MAC registers */
-	enc_macinit();
+	enc_macinit(hwaddr, framelen, fd);
 	/* configure PHY registers */
 	enc_phyinit();
 
