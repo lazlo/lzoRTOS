@@ -205,21 +205,27 @@ static void enc_clkout(const unsigned char ps)
  * Will configure the size of the receive buffer. The remaining space will be
  * used as the transmission buffer.
  */
-static void enc_bufinit(void)
+static void enc_bufinit(const unsigned short rxbufstart,
+			const unsigned short rxbufend)
 {
-#if 0
+	unsigned short rxbufread = rxbufstart;
+
+	/* Select bank 0 for access to EXRSTL, ERXSTH, ERXNDL, ERXNDH,
+	 * RXRDPTL and RXRDPTH */
+
+	enc_bank(BANK0);
+
 	/* set receive buffer start poitner (ERXST) */
-	enc_spi_write(WCR, ERXSTL, 0);
-	enc_spi_write(WCR, ERXSTH, 0);
+	enc_wcr(ERXSTL, rxbufstart);
+	enc_wcr(ERXSTH, rxbufstart >> 8);
 
 	/* set receive buffer end pointer (ERXND) */
-	enc_spi_write(WCR, ERXNDL, 0xf);
-	enc_spi_write(WCR, ERXNDH, 0xff);
+	enc_wcr(ERXNDL, rxbufend);
+	enc_wcr(ERXNDH, rxbufend >> 8);
 
 	/* set receive buffer read pointer (ERXRDPT) */
-	enc_spi_write(WCR, ERXRDPTL, 0);
-	enc_spi_write(WCR, ERXRDPTH, 0);
-#endif
+	enc_wcr(ERXRDPTL, rxbufread);
+	enc_wcr(ERXRDPTH, rxbufread >> 8);
 }
 
 /* MAC ***********************************************************************/
@@ -352,6 +358,9 @@ void enc28j60_init(unsigned char hwaddr[6],
 		const unsigned short framelen,
 		const unsigned char fd)
 {
+	unsigned short rxbufstart = 0x1FF;
+	unsigned short rxbufend = 0x1FFF;
+
 	/* GPIO configuration */
 	enc_gpioinit();
 
@@ -359,7 +368,7 @@ void enc28j60_init(unsigned char hwaddr[6],
 	enc_clkout(CLKOUT_DIV2);
 
 	/* receive buffer */
-	enc_bufinit();
+	enc_bufinit(rxbufstart, rxbufend);
 
 	/* receive filters (ERXFCON) */
 
