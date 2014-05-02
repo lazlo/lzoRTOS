@@ -59,12 +59,12 @@ int board_init(void)
 	unsigned short framelen;
 	unsigned char fd;
 
-	hwaddr[0] = 0x00;
-	hwaddr[1] = 0xAA;
-	hwaddr[2] = 0xBB;
-	hwaddr[3] = 0xCC;
-	hwaddr[4] = 0xDD;
-	hwaddr[5] = 0xEE;
+	hwaddr[0] = 0xEE;
+	hwaddr[1] = 0xDD;
+	hwaddr[2] = 0xCC;
+	hwaddr[3] = 0xBB;
+	hwaddr[4] = 0xAA;
+	hwaddr[5] = 0x00;
 
 	framelen = 1518;
 	fd = 0;
