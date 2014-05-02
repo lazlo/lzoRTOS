@@ -19,6 +19,7 @@
 #define ENC28J60_CS_SET_HIGH	(GPIO_ENC28J60_CS_PORT	|= (1 << GPIO_ENC28J60_CS_OFFSET))
 #define ENC28J60_CS_SET_LOW	(GPIO_ENC28J60_CS_PORT	&= ~(1 << GPIO_ENC28J60_CS_OFFSET))
 #define ENC28J60_INT_AS_INPUT	(GPIO_ENC28J60_INT_DDR	&= ~(1 << GPIO_ENC28J60_INT_OFFSET))
+#define ENC28J60_INT_IS_HIGH	(GPIO_ENC28J60_INT_PIN & (1 << GPIO_ENC28J60_INT_OFFSET))
 
 #define ENC_SELECT	ENC28J60_CS_SET_LOW
 #define ENC_DESELECT	ENC28J60_CS_SET_HIGH
@@ -634,4 +635,19 @@ void enc28j60_init(unsigned char hwaddr[6],
 
 void enc28j60_update(void)
 {
+	unsigned short pktcnt;
+	char str_pktcnt[6];
+
+	if (!ENC28J60_INT_IS_HIGH)
+		dbg("enc28j60: int\r\n");
+
+	enc_bank(BANK1);
+	pktcnt = enc_rcr(EPKTCNT);
+
+	if (pktcnt > 0) {
+		itoa(pktcnt, str_pktcnt, 10);
+		dbg("enc28j60: pktcnt ");
+		dbg(str_pktcnt);
+		dbg("\r\n");
+	}
 }
