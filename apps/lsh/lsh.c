@@ -263,6 +263,12 @@ static void lsh_cmd_help(void)
 
 static void lsh_parse(char *input, const int limit)
 {
+#ifdef CONFIG_NET
+#ifdef CONFIG_CMD_IFCONFIG
+	if (lsh_strncmp(input, "ifconfig", limit) == 0)
+		return lsh_cmd_ifconfig();
+#endif
+#endif
 #ifdef CONFIG_SCHED
 	if (lsh_strncmp(input, "kill", limit) == 0)
 		return lsh_cmd_kill();
