@@ -240,6 +240,32 @@ static int enc_clkready(void)
 	return 0;
 }
 
+/* Controller ****************************************************************/
+
+static void enc_recv_enable(void)
+{
+	unsigned char v;
+
+	/* Enable interrupts */
+
+	v = 0;
+	v |= (1 << INTIE);
+	v |= (1 << PKTIE);
+#if 0
+	v |= (1 << DMAIE);
+	v |= (1 << LINKIE);
+	v |= (1 << TXIE);
+	v |= (1 << TXERIE);
+#endif
+	v |= (1 << RXERIE);
+
+	enc_wcr(EIE, v);
+
+	/* Enable reception */
+
+	enc_bfs(ECON1, (1 << ERXEN));
+}
+
 /* Optional ******************************************************************/
 
 /* Configure the optional clock output pin (CLKOUT).
@@ -599,7 +625,9 @@ void enc28j60_init(unsigned char hwaddr[6],
 	enc_cfg_dump(testrxbufstart, testrxbufend,
 			testhwaddr, testframelen, fd);
 #endif
+	/* Enable reception */
 
+	enc_recv_enable();
 
 	dbg("enc28j60: ready!\r\n");
 }
