@@ -26,6 +26,7 @@
 #define GPIO_ENC28J60_INT_OFFSET	2
 #define GPIO_ENC28J60_INT_DDR		DDRB
 #define GPIO_ENC28J60_INT_PORT		PORTB
+#define GPIO_ENC28J60_INT_PIN		PINB
 
 /* used by arch/avr/avr_spi.c */
 
