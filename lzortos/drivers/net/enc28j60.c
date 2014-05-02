@@ -603,3 +603,7 @@ void enc28j60_init(unsigned char hwaddr[6],
 
 	dbg("enc28j60: ready!\r\n");
 }
+
+void enc28j60_update(void)
+{
+}
