@@ -635,19 +635,24 @@ void enc28j60_init(unsigned char hwaddr[6],
 
 void enc28j60_update(void)
 {
+	extern unsigned short g_eth0_rxpktcnt;
 	unsigned short pktcnt;
+#if 0
 	char str_pktcnt[6];
-
+#endif
 	if (!ENC28J60_INT_IS_HIGH)
 		dbg("enc28j60: int\r\n");
 
 	enc_bank(BANK1);
 	pktcnt = enc_rcr(EPKTCNT);
 
+	g_eth0_rxpktcnt = pktcnt;
+#if 0
 	if (pktcnt > 0) {
 		itoa(pktcnt, str_pktcnt, 10);
 		dbg("enc28j60: pktcnt ");
 		dbg(str_pktcnt);
 		dbg("\r\n");
 	}
+#endif
 }
