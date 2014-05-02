@@ -47,7 +47,7 @@
 //#define CONFIG_CMD_DU
 //#define CONFIG_CMD_DF
 //#define CONFIG_CMD_ECHO
-//#define CONFIG_CMD_ETHTOOL
+#define CONFIG_CMD_ETHTOOL
 //#define CONFIG_CMD_ENV
 //#define CONFIG_CMD_FREE
 //#define CONFIG_CMD_GREP

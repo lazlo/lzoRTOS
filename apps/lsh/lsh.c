@@ -223,6 +223,10 @@ static void lsh_cmd_help(void)
 
 static void lsh_parse(char *input, const int limit)
 {
+#if defined(CONFIG_NET) && defined(CONFIG_CMD_ETHTOOL)
+	if (lsh_strncmp(input, "ethtool", limit) == 0)
+		return lsh_cmd_ethtool();
+#endif
 #if defined(CONFIG_NET) && defined(CONFIG_CMD_IFCONFIG)
 	if (lsh_strncmp(input, "ifconfig", limit) == 0)
 		return lsh_cmd_ifconfig();

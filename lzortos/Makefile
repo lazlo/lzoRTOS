@@ -82,6 +82,7 @@ SRC += ../apps/lsh/lsh_cmd_ps.c
 SRC += ../apps/lsh/lsh_cmd_kill.c
 SRC += ../apps/lsh/lsh_cmd_spi.c
 SRC += ../apps/lsh/lsh_cmd_ifconfig.c
+SRC += ../apps/lsh/lsh_cmd_ethtool.c
 
 # List Assembler source files here.
 # Make them always end in a capital .S.  Files ending in a lowercase .s
