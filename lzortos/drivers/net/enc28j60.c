@@ -58,6 +58,12 @@ static unsigned char enc_regio(const uint8_t op, const uint8_t addr, const uint8
  * SPI Command Instructions
  *----------------------------------------------------------------------------*/
 
+/* Send System Reset Command */
+static void enc_reset(void)
+{
+	avr_spi_trx(SRC);
+}
+
 /* Read Control Register instruction */
 static char enc_rcr(const char in)
 {
@@ -599,6 +605,9 @@ void enc28j60_init(unsigned char hwaddr[6],
 	enc_gpioinit();
 
 	enc_bank_test(0x19);
+
+	/* Reset the controller before proceeding with configuration */
+	enc_reset();
 
 	/* Set clock output configuration (optional) */
 	enc_clkout(CLKOUT_DIV2);
