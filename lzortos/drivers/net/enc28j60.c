@@ -256,6 +256,7 @@ static void enc_clkout(const unsigned char ps)
 
 /* Ethernet Buffer ***********************************************************/
 
+/* Get the receive buffer start address */
 static unsigned short enc_getrxbufstart(void)
 {
 	unsigned short start = 0;
@@ -265,6 +266,7 @@ static unsigned short enc_getrxbufstart(void)
 	return start;
 }
 
+/* Get the receive buffer end address */
 static unsigned short enc_getrxbufend(void)
 {
 	unsigned short end = 0;
@@ -304,6 +306,7 @@ static void enc_bufinit(const unsigned short rxbufstart,
 
 /* MAC ***********************************************************************/
 
+/* Set the maximum frame lenth */
 static void enc_mac_setframelen(const unsigned short framelen)
 {
 	/* Select bank 2 for access to MAMXFLL and MAMXFLH */
@@ -314,6 +317,7 @@ static void enc_mac_setframelen(const unsigned short framelen)
 	enc_wcr(MAMXFLH, framelen >> 8);
 }
 
+/* Get the maximum frame length */
 static unsigned short enc_mac_getframelen(void)
 {
 	unsigned short len = 0;
@@ -323,6 +327,7 @@ static unsigned short enc_mac_getframelen(void)
 	return len;
 }
 
+/* Set the MAC address */
 static void enc_mac_sethwaddr(unsigned char hwaddr[6])
 {
 	/* Select bank 3 for access to MAADR registers */
@@ -337,6 +342,7 @@ static void enc_mac_sethwaddr(unsigned char hwaddr[6])
 	enc_wcr(MAADR6, hwaddr[5]);
 }
 
+/* Get the MAC address */
 static void enc_mac_gethwaddr(unsigned char hwaddr[6])
 {
 	enc_bank(BANK3);
@@ -453,6 +459,7 @@ static void enc_macinit(unsigned char hwaddr[6],
 
 /* PHY ***********************************************************************/
 
+/* Read a PHY register */
 static unsigned short enc_phy_regread(const unsigned char reg)
 {
 	unsigned short rv;
@@ -483,6 +490,7 @@ static unsigned short enc_phy_regread(const unsigned char reg)
 	return rv;
 }
 
+/* Write to a PHY register */
 static void enc_phy_regwrite(const unsigned char reg, const unsigned short v)
 {
 	/* Select bank 2 for access to MIREGADR */
@@ -502,6 +510,7 @@ static void enc_phy_regwrite(const unsigned char reg, const unsigned short v)
 		;
 }
 
+/* Initialize PHY */
 static void enc_phyinit(const unsigned char fd)
 {
 	unsigned short v;
@@ -540,6 +549,7 @@ static void enc_phyinit(const unsigned char fd)
  * Public functions
  ******************************************************************************/
 
+/* Initialize ENC28j60 Ethernet controller */
 void enc28j60_init(unsigned char hwaddr[6],
 		const unsigned short framelen,
 		const unsigned char fd)
