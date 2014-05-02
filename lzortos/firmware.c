@@ -22,6 +22,8 @@
 
 #include "avr_irq.h"
 
+#include "enc28j60.h"
+
 /* Applications **************************************************************/
 
 #include "lsh.h"
@@ -53,6 +55,9 @@ int os_start(void)
 	sched_init();
 #endif
 #ifdef CONFIG_SCHED
+#ifdef CONFIG_NET
+	sched_add_task(enc28j60_update, 3, 25);
+#endif
 	sched_add_task(lsh, 0, 100);
 	sched_add_task(Task_ToggleLed3, 10, 100);
 	/* Add tasks here. */
