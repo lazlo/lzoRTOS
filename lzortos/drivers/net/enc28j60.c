@@ -283,6 +283,14 @@ static void enc_clkout(const unsigned char ps)
 
 /* Ethernet Buffer ***********************************************************/
 
+/* Set receive buffer start poitner (ERXST) */
+static void enc_setrxbufstart(const unsigned short rxbufstart)
+{
+	enc_bank(BANK0);
+	enc_wcr(ERXSTL, rxbufstart);
+	enc_wcr(ERXSTH, rxbufstart >> 8);
+}
+
 /* Get the receive buffer start address */
 static unsigned short enc_getrxbufstart(void)
 {
@@ -291,6 +299,14 @@ static unsigned short enc_getrxbufstart(void)
 	start |= enc_rcr(ERXSTL);
 	start |= enc_rcr(ERXSTH) << 8;
 	return start;
+}
+
+/* Set receive buffer end pointer (ERXND) */
+static void enc_setrxbufend(const unsigned short rxbufend)
+{
+	enc_bank(BANK0);
+	enc_wcr(ERXNDL, rxbufend);
+	enc_wcr(ERXNDH, rxbufend >> 8);
 }
 
 /* Get the receive buffer end address */
@@ -303,6 +319,14 @@ static unsigned short enc_getrxbufend(void)
 	return end;
 }
 
+/* Set receive buffer read pointer (ERXRDPT) */
+static void enc_setrxreadpt(const unsigned short rxbufread)
+{
+	enc_bank(BANK0);
+	enc_wcr(ERXRDPTL, rxbufread);
+	enc_wcr(ERXRDPTH, rxbufread >> 8);
+}
+
 /* Initialize the ethernet buffer.
  *
  * Will configure the size of the receive buffer. The remaining space will be
@@ -313,22 +337,9 @@ static void enc_bufinit(const unsigned short rxbufstart,
 {
 	unsigned short rxbufread = rxbufstart;
 
-	/* Select bank 0 for access to EXRSTL, ERXSTH, ERXNDL, ERXNDH,
-	 * RXRDPTL and RXRDPTH */
-
-	enc_bank(BANK0);
-
-	/* set receive buffer start poitner (ERXST) */
-	enc_wcr(ERXSTL, rxbufstart);
-	enc_wcr(ERXSTH, rxbufstart >> 8);
-
-	/* set receive buffer end pointer (ERXND) */
-	enc_wcr(ERXNDL, rxbufend);
-	enc_wcr(ERXNDH, rxbufend >> 8);
-
-	/* set receive buffer read pointer (ERXRDPT) */
-	enc_wcr(ERXRDPTL, rxbufread);
-	enc_wcr(ERXRDPTH, rxbufread >> 8);
+	enc_setrxbufstart(rxbufstart);
+	enc_setrxbufend(rxbufend);
+	enc_setrxreadpt(rxbufread);
 }
 
 /* MAC ***********************************************************************/
