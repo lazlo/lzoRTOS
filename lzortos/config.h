@@ -35,6 +35,18 @@
 /* Enable support for ADC peripherals. */
 //#define CONFIG_ADC
 
+/* ENC28J60 Ethernet Controller configuration ********************************/
+
+#define CONFIG_ENC28J60_MAC_B0		0xEE
+#define CONFIG_ENC28J60_MAC_B1		0xDD
+#define CONFIG_ENC28J60_MAC_B2		0xCC
+#define CONFIG_ENC28J60_MAC_B3		0xBB
+#define CONFIG_ENC28J60_MAC_B4		0xAA
+#define CONFIG_ENC28J60_MAC_B5		0x00
+
+#define CONFIG_ENC28J60_MAXFRAMELEN	1536
+#define CONFIG_ENC28J60_FULLDUPLEX	0
+
 /* Applications **************************************************************/
 
 /* Maximum lengh of a command line. */

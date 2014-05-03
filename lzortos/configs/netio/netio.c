@@ -59,15 +59,15 @@ int board_init(void)
 	unsigned short framelen;
 	unsigned char fd;
 
-	hwaddr[0] = 0xEE;
-	hwaddr[1] = 0xDD;
-	hwaddr[2] = 0xCC;
-	hwaddr[3] = 0xBB;
-	hwaddr[4] = 0xAA;
-	hwaddr[5] = 0x00;
+	hwaddr[0] = CONFIG_ENC28J60_MAC_B0;
+	hwaddr[1] = CONFIG_ENC28J60_MAC_B1;
+	hwaddr[2] = CONFIG_ENC28J60_MAC_B2;
+	hwaddr[3] = CONFIG_ENC28J60_MAC_B3;
+	hwaddr[4] = CONFIG_ENC28J60_MAC_B4;
+	hwaddr[5] = CONFIG_ENC28J60_MAC_B5;
 
-	framelen = 1518;
-	fd = 0;
+	framelen = CONFIG_ENC28J60_MAXFRAMELEN;
+	fd = CONFIG_ENC28J60_FULLDUPLEX;
 
 	netioaddon_init_led();
 	netioaddon_init_irda();
