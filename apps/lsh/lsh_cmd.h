@@ -1,6 +1,7 @@
 #ifndef D_LSH_CMD_H
 #define D_LSH_CMD_H
 
+void lsh_cmd_dmesg(void);
 void lsh_cmd_ethtool(void);
 void lsh_cmd_ifconfig(void);
 void lsh_cmd_ps(void);

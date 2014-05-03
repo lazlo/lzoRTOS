@@ -69,6 +69,9 @@ static void lsh_cmd_help(void)
 #if defined(CONFIG_FS) && defined(CONFIG_CMD_DD)
 	lsh_puts(" dd\r\n");
 #endif
+#if defined(CONFIG_CMD_DMESG)
+	lsh_puts(" dmesg\r\n");
+#endif
 #if defined(CONFIG_FS) && defined(CONFIG_CMD_DU)
 	lsh_puts(" du\r\n");
 #endif
@@ -223,6 +226,10 @@ static void lsh_cmd_help(void)
 
 static void lsh_parse(char *input, const int limit)
 {
+#if defined(CONFIG_CMD_DMESG)
+	if (lsh_strncmp(input, "dmesg", limit) == 0)
+		return lsh_cmd_dmesg();
+#endif
 #if defined(CONFIG_NET) && defined(CONFIG_CMD_ETHTOOL)
 	if (lsh_strncmp(input, "ethtool", limit) == 0)
 		return lsh_cmd_ethtool();

@@ -78,6 +78,7 @@ SRC += fs/fs.c
 SRC += net/net.c
 SRC += sched/sched.c
 SRC += ../apps/lsh/lsh.c
+SRC += ../apps/lsh/lsh_cmd_dmesg.c
 SRC += ../apps/lsh/lsh_cmd_ps.c
 SRC += ../apps/lsh/lsh_cmd_kill.c
 SRC += ../apps/lsh/lsh_cmd_spi.c

@@ -47,6 +47,7 @@
 //#define CONFIG_CMD_CD
 //#define CONFIG_CMD_CP
 //#define CONFIG_CMD_DD
+#define CONFIG_CMD_DMESG
 //#define CONFIG_CMD_DU
 //#define CONFIG_CMD_DF
 //#define CONFIG_CMD_ECHO
