@@ -3,6 +3,7 @@
 #include "avr_usart.h"
 
 unsigned short g_eth0_rxpktcnt;
+char g_eth0_hwaddr[6];
 
 int net_init(void)
 {

@@ -3,18 +3,47 @@
 
 #include "strutils.h"
 
+extern char g_eth0_hwaddr[6];
 extern unsigned short g_eth0_rxpktcnt;
 
 void lsh_cmd_ifconfig(void)
 {
+	unsigned char hwaddr[6];
 	unsigned short rxpktcnt = 0;
+	char str_hwaddr[6][3];
 	char str_rxpktcnt[6];
 
+	hwaddr[0] = g_eth0_hwaddr[0];
+	hwaddr[1] = g_eth0_hwaddr[1];
+	hwaddr[2] = g_eth0_hwaddr[2];
+	hwaddr[3] = g_eth0_hwaddr[3];
+	hwaddr[4] = g_eth0_hwaddr[4];
+	hwaddr[5] = g_eth0_hwaddr[5];
 	rxpktcnt = g_eth0_rxpktcnt;
+
+	itoa(hwaddr[0], str_hwaddr[0], 16);
+	itoa(hwaddr[1], str_hwaddr[1], 16);
+	itoa(hwaddr[2], str_hwaddr[2], 16);
+	itoa(hwaddr[3], str_hwaddr[3], 16);
+	itoa(hwaddr[4], str_hwaddr[4], 16);
+	itoa(hwaddr[5], str_hwaddr[5], 16);
 	itoa(rxpktcnt, str_rxpktcnt, 10);
 
 	lsh_puts("eth0      ");
-	lsh_puts("Link encap:Ethernet  HWaddr 00:00:00:00:00:00\r\n");
+	lsh_puts("Link encap:Ethernet  ");
+	lsh_puts("HWaddr ");
+	lsh_puts(str_hwaddr[0]);
+	lsh_puts(":");
+	lsh_puts(str_hwaddr[1]);
+	lsh_puts(":");
+	lsh_puts(str_hwaddr[2]);
+	lsh_puts(":");
+	lsh_puts(str_hwaddr[3]);
+	lsh_puts(":");
+	lsh_puts(str_hwaddr[4]);
+	lsh_puts(":");
+	lsh_puts(str_hwaddr[5]);
+	lsh_puts("\r\n");
 	lsh_puts("          ");
 	lsh_puts("RX ");
 	lsh_puts("packets:");
