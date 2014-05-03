@@ -61,6 +61,8 @@
 //#define CONFIG_CMD_HWCLOCK
 //#define CONFIG_CMD_I2C
 #define CONFIG_CMD_IFCONFIG
+#define CONFIG_CMD_IFDOWN
+#define CONFIG_CMD_IFUP
 #define CONFIG_CMD_KILL
 //#define CONFIG_CMD_LESS
 //#define CONFIG_CMD_LS

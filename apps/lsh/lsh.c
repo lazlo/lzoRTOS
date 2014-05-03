@@ -118,6 +118,12 @@ static void lsh_cmd_help(void)
 #if defined(CONFIG_NET) && defined(CONFIG_CMD_IFCONFIG)
 	lsh_puts(" ifconfig\r\n");
 #endif
+#if defined(CONFIG_NET) && defined(CONFIG_CMD_IFDOWN)
+	lsh_puts(" ifdown\r\n");
+#endif
+#if defined(CONFIG_NET) && defined(CONFIG_CMD_IFUP)
+	lsh_puts(" ifup\r\n");
+#endif
 #if defined(CONFIG_SCHED) && defined(CONFIG_CMD_KILL)
 	lsh_puts(" kill\r\n");
 #endif
@@ -237,6 +243,14 @@ static void lsh_parse(char *input, const int limit)
 #if defined(CONFIG_NET) && defined(CONFIG_CMD_IFCONFIG)
 	if (lsh_strncmp(input, "ifconfig", limit) == 0)
 		return lsh_cmd_ifconfig();
+#endif
+#if defined(CONFIG_NET) && defined(CONFIG_CMD_IFDOWN)
+	if (lsh_strncmp(input, "ifdown", limit) == 0)
+		return lsh_cmd_ifdown();
+#endif
+#if defined(CONFIG_NET) && defined(CONFIG_CMD_IFUP)
+	if (lsh_strncmp(input, "ifup", limit) == 0)
+		return lsh_cmd_ifup();
 #endif
 #if defined(CONFIG_SCHED) && defined(CONFIG_CMD_KILL)
 	if (lsh_strncmp(input, "kill", limit) == 0)
