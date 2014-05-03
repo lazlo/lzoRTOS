@@ -13,6 +13,8 @@ void lsh_cmd_ifconfig(void)
 	char str_hwaddr[6][3];
 	char str_rxpktcnt[6];
 
+	/* Get the information for the interface */
+
 	hwaddr[0] = g_eth0_hwaddr[0];
 	hwaddr[1] = g_eth0_hwaddr[1];
 	hwaddr[2] = g_eth0_hwaddr[2];
@@ -21,6 +23,8 @@ void lsh_cmd_ifconfig(void)
 	hwaddr[5] = g_eth0_hwaddr[5];
 	rxpktcnt = g_eth0_rxpktcnt;
 
+	/* Convert information for output */
+
 	itoa(hwaddr[0], str_hwaddr[0], 16);
 	itoa(hwaddr[1], str_hwaddr[1], 16);
 	itoa(hwaddr[2], str_hwaddr[2], 16);
@@ -28,6 +32,8 @@ void lsh_cmd_ifconfig(void)
 	itoa(hwaddr[4], str_hwaddr[4], 16);
 	itoa(hwaddr[5], str_hwaddr[5], 16);
 	itoa(rxpktcnt, str_rxpktcnt, 10);
+
+	/* Show the outout */
 
 	lsh_puts("eth0      ");
 	lsh_puts("Link encap:Ethernet  ");
