@@ -24,13 +24,16 @@
 #define usart0_rxc()	(UCSRA & (1 << RXC))
 #endif
 
-void avr_usart_init(void)
+void avr_usart_init(const unsigned int baud)
 {
 	unsigned short ubrr;
+
 #if 1
-	ubrr =25; /* 38400 bps */
+	if (baud == 38400)
+		ubrr = 25; /* 38400 bps */
 #else
-	ubrr = 12; /* 76800 bps */
+	if (baud == 76800)
+		ubrr = 12; /* 76800 bps */
 #endif
 	/* configure baud rate generator with prescaler */
 	usart0_set_ubrr(ubrr);

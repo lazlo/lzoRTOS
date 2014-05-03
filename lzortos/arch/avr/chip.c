@@ -8,7 +8,7 @@
 int chip_init(void)
 {
 	avr_timer1_init(CONFIG_TIMER1_TICK_MS);
-	avr_usart_init();
+	avr_usart_init(CONFIG_USART_BAUD);
 #ifdef CONFIG_SPI
 	avr_spi_init();
 #endif

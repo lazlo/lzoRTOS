@@ -20,6 +20,9 @@
 
 /* Hardware support **********************************************************/
 
+/* Baud rate to use for the primary serial interface */
+#define CONFIG_USART_BAUD	38400
+
 /* Configure 16-bit timer1 to tick every n Number of miliseconds */
 #define CONFIG_TIMER1_TICK_MS 1
 
