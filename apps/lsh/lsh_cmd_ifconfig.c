@@ -35,4 +35,5 @@ void lsh_cmd_ifconfig(void)
 	lsh_puts("collision:0 txqueuelen:0\r\n");
 	lsh_puts("          ");
 	lsh_puts("RX bytes:0   TX bytes:0\r\n");
+	lsh_puts("\r\n");
 }
