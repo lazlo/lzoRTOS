@@ -348,6 +348,54 @@ static void enc_bufinit(const unsigned short rxbufstart,
 	enc_setrxreadpt(rxbufread);
 }
 
+/* Receive Filter ************************************************************/
+
+static void enc_setrxfilters(const unsigned char f)
+{
+	enc_bank(BANK1);
+	enc_wcr(ERXFCON, f);
+}
+
+static unsigned char enc_getrxfilters(void)
+{
+	enc_bank(BANK1);
+	return enc_rcr(ERXFCON);
+}
+
+static void enc_showrxfilters(void)
+{
+	unsigned char f;
+	char str_rxfilters[3];
+
+	f = enc_getrxfilters();
+	itoa(f, str_rxfilters, 16);
+	dbg("enc28j60: rxfilters:  0x");
+	dbg(str_rxfilters);
+	dbg("\r\n");
+}
+
+static void enc_rxfilterinit(void)
+{
+	unsigned char v;
+
+	v = 0;
+#if 1
+	v |= (1 << UCEN);	/* Unicast Filter Enable */
+//	v |= (1 << ANDOR);	/* AND/OR Filter Enable */
+	v |= (1 << CRCEN);	/* Post-Filter CRC Check Enable */
+//	v |= (1 << PMEN);	/* Pattern Match Filter Enable */
+//	v |= (1 << MPEN);	/* Magic Packet Filter Enable */
+//	v |= (1 << HTEN);	/* Hash Table Filter Enable */
+	v |= (1 << MCEN);	/* Multicast Filter Enable */
+//	v |= (1 << BCEN);	/* Broadcast Filter Enable */
+#endif
+	enc_showrxfilters();
+
+	enc_setrxfilters(v);
+
+	enc_showrxfilters();
+}
+
 /* MAC ***********************************************************************/
 
 /* Set the maximum frame lenth */
@@ -616,6 +664,7 @@ void enc28j60_init(unsigned char hwaddr[6],
 	enc_bufinit(rxbufstart, rxbufend);
 
 	/* receive filters (ERXFCON) */
+	enc_rxfilterinit();
 
 	/* Wait for the Oscillator Start-Up timer to expire
 	 * so MAC and PHY can be initialized. */
