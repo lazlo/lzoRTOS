@@ -275,6 +275,7 @@ void lsh(void)
 	int len;
 	lsh_prompt();
 
+	/* TODO Make lsh_getline read from stdin buffer */
 	len = lsh_getline(line, CONFIG_LSH_GETLINE_NCHARS);
 	lsh_puts("\r\n");
 
