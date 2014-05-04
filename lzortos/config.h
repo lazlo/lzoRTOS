@@ -2,7 +2,7 @@
 #define D_CONFIG_H
 
 /* Enable debug output. */
-//#define CONFIG_DEBUG
+#define CONFIG_DEBUG
 
 /* System components *********************************************************/
 
@@ -10,7 +10,7 @@
 //#define CONFIG_FS
 
 /* Enable netwoking support. */
-//#define CONFIG_NET
+#define CONFIG_NET
 
 /* Enable the basic co-operative scheduler. */
 #define CONFIG_SCHED
