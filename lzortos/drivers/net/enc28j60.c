@@ -714,11 +714,19 @@ void enc28j60_update(void)
 {
 	extern unsigned short g_eth0_rxpktcnt;
 	unsigned short pktcnt;
+	unsigned char eir;
+	char str_eir[3];
+
 #if 0
 	char str_pktcnt[6];
 #endif
-	if (!ENC28J60_INT_IS_HIGH)
-		dbg("enc28j60: int\r\n");
+	if (!ENC28J60_INT_IS_HIGH) {
+		eir = enc_rcr(EIR);
+		itoa(eir, str_eir, 16);
+		dbg("enc28j60: int 0x");
+		dbg(str_eir);
+		dbg("\r\n");
+	}
 
 	enc_bank(BANK1);
 	pktcnt = enc_rcr(EPKTCNT);
