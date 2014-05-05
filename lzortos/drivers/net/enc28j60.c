@@ -25,6 +25,12 @@
 #define ENC_DESELECT	ENC28J60_CS_SET_HIGH
 
 /******************************************************************************
+ * Private variables
+ ******************************************************************************/
+
+static unsigned char enc28j60_bank;
+
+/******************************************************************************
  * Private functions
  ******************************************************************************/
 
@@ -149,7 +155,10 @@ static void enc_gpioinit(void)
 /* Select a memory bank */
 static void enc_bank(const char bank)
 {
-	enc_wcr(ECON1, (bank & BSEL_MASK) << BSEL_OFFSET);
+	if (enc28j60_bank != bank) {
+		enc28j60_bank = bank;
+		enc_wcr(ECON1, (bank & BSEL_MASK) << BSEL_OFFSET);
+	}
 }
 
 static void enc_bank_test(const char reg)
