@@ -58,10 +58,12 @@ static unsigned char enc_regio(const uint8_t op, const uint8_t addr, const uint8
  * SPI Command Instructions
  *----------------------------------------------------------------------------*/
 
-/* Send System Reset Command */
+/* Send System Reset instruction */
 static void enc_reset(void)
 {
-	avr_spi_trx(SRC);
+	ENC_SELECT;
+	avr_spi_trx(SRC | 0x1F);
+	ENC_DESELECT;
 }
 
 /* Read Control Register instruction */
