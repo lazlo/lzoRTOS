@@ -1,7 +1,7 @@
 #define IOBUF_RECV_BUFLEN	16
 #define IOBUF_TRAN_BUFLEN	100
 
-struct cmnbuf {
+struct ringbuf {
 	unsigned int head; /* produced */
 	unsigned int tail; /* consumed */
 	unsigned int len;
@@ -9,8 +9,8 @@ struct cmnbuf {
 };
 
 struct iobuf {
-	struct cmnbuf tx;
-	struct cmnbuf rx;
+	struct ringbuf tx;
+	struct ringbuf rx;
 };
 
 static char recv_buf[IOBUF_RECV_BUFLEN];
@@ -18,7 +18,7 @@ static char tran_buf[IOBUF_TRAN_BUFLEN];
 
 static struct iobuf buf;
 
-static void cmnbuf_init(struct cmnbuf *buf, char *bufstart, const unsigned int len)
+static void ringbuf_init(struct ringbuf *buf, char *bufstart, const unsigned int len)
 {
 	buf->head = buf->tail = 0;
 	buf->len = len;
@@ -27,7 +27,7 @@ static void cmnbuf_init(struct cmnbuf *buf, char *bufstart, const unsigned int l
 
 static void tx_init(char *bufstart, const unsigned int len)
 {
-	cmnbuf_init(&buf.tx, bufstart, len);
+	ringbuf_init(&buf.tx, bufstart, len);
 }
 
 static void tx_enqueue(const char c)
@@ -48,7 +48,7 @@ static void tx_dequeue(void)
 
 static void rx_init(char *bufstart, const unsigned int len)
 {
-	cmnbuf_init(&buf.rx, bufstart, len);
+	ringbuf_init(&buf.rx, bufstart, len);
 }
 
 static void rx_enqueue(void)
