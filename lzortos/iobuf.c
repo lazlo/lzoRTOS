@@ -30,7 +30,7 @@ static void tx_init(char *bufstart, const unsigned int len)
 	cmnbuf_init(&buf.tx, bufstart, len);
 }
 
-static void tx_produce(const char c)
+static void tx_enqueue(const char c)
 {
 	/* Is there a free byte in the transmission buffer? */
 	if (buf.tx.head < buf.tx.len) {
@@ -40,7 +40,7 @@ static void tx_produce(const char c)
 	}
 }
 
-static void tx_consume(void)
+static void tx_dequeue(void)
 {
 	/* This is where the write function of the IO device driver must be called */
 	/* for example uart_putc() */
@@ -51,13 +51,13 @@ static void rx_init(char *bufstart, const unsigned int len)
 	cmnbuf_init(&buf.rx, bufstart, len);
 }
 
-static void rx_produce(void)
+static void rx_enqueue(void)
 {
 	/* This is where the read function of the IO device driver must be called */
 	/* for example uart_getc() */
 }
 
-static char rx_consume(void)
+static char rx_dequeue(void)
 {
 	char c;
 	/* Is there a byte to be read from the receive buffer? */
@@ -85,7 +85,7 @@ void iobuf_putc(const char c)
 /* Read a byte received */
 char iobuf_getc(void)
 {
-	return rx_consume();
+	return rx_dequeue();
 }
 
 /* Perform actual transmission and reception */
@@ -95,7 +95,7 @@ void iobuf_update(void)
 
 	/* Check if there is a byte */
 	if (buf.tx.tail < buf.tx.head) {
-		tx_consume();
+		tx_enqueue();
 		buf.tx.tail += 1;
 	} else {
 		buf.tx.head = buf.tx.tail = 0;
