@@ -25,6 +25,21 @@ static void ringbuf_init(struct ringbuf *buf, char *bufstart, const unsigned int
 	buf->start = bufstart;
 }
 
+static void ringbuf_enqueue(struct ringbuf *buf, const char c)
+{
+	buf.start[buf.head] = c;
+	buf.head += 1;
+}
+
+static char ringbuf_dequeue(struct ringbuf *buf)
+{
+	char c;
+	c = buf.start[buf.tail];
+	if (buf.tail < buf.len)
+		buf.tail += 1;
+	return c;
+}
+
 static void tx_init(char *bufstart, const unsigned int len)
 {
 	ringbuf_init(&buf.tx, bufstart, len);
@@ -35,8 +50,7 @@ static void tx_enqueue(const char c)
 	/* Is there a free byte in the transmission buffer? */
 	if (buf.tx.head < buf.tx.len) {
 		/* Write to the transmission buffer */
-		buf.tx.start[buf.tx.head] = c;
-		buf.tx.head += 1;
+		ringbuf_enqueue(&buf.tx, c);
 	}
 }
 
@@ -63,9 +77,7 @@ static char rx_dequeue(void)
 	/* Is there a byte to be read from the receive buffer? */
 	if (buf.rx.tail < buf.rx.head) {
 		/* Read from the receive buffer */
-		c = buf.rx.start[buf.rx.tail];
-		if (buf.rx.tail < buf.rx.len)
-			buf.rx.tail += 1;
+		c = ringbuf_dequeue(&buf.rx);
 	}
 	return c;
 }
