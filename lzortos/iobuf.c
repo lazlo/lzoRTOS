@@ -2,8 +2,8 @@
 #define IOBUF_TRAN_BUFLEN	100
 
 struct cmnbuf {
-	unsigned int produced;
-	unsigned int consumed;
+	unsigned int head; /* produced */
+	unsigned int tail; /* consumed */
 	unsigned int len;
 	char *start;
 };
@@ -20,7 +20,7 @@ static struct iobuf buf;
 
 static void cmnbuf_init(struct cmnbuf *buf, char *bufstart, const unsigned int len)
 {
-	buf->produced = buf->consumed = 0;
+	buf->head = buf->tail = 0;
 	buf->len = len;
 	buf->start = bufstart;
 }
@@ -33,10 +33,10 @@ static void tx_init(char *bufstart, const unsigned int len)
 static void tx_produce(const char c)
 {
 	/* Is there a free byte in the transmission buffer? */
-	if (buf.tx.produced < buf.tx.len) {
+	if (buf.tx.head < buf.tx.len) {
 		/* Write to the transmission buffer */
-		buf.tx.start[buf.tx.produced] = c;
-		buf.tx.produced += 1;
+		buf.tx.start[buf.tx.head] = c;
+		buf.tx.head += 1;
 	}
 }
 
@@ -61,11 +61,11 @@ static char rx_consume(void)
 {
 	char c;
 	/* Is there a byte to be read from the receive buffer? */
-	if (buf.rx.consumed < buf.rx.produced) {
+	if (buf.rx.tail < buf.rx.head) {
 		/* Read from the receive buffer */
-		c = buf.rx.start[buf.rx.consumed];
-		if (buf.rx.consumed < buf.rx.len)
-			buf.rx.consumed += 1;
+		c = buf.rx.start[buf.rx.tail];
+		if (buf.rx.tail < buf.rx.len)
+			buf.rx.tail += 1;
 	}
 	return c;
 }
@@ -94,21 +94,21 @@ void iobuf_update(void)
 	/* Transmission */
 
 	/* Check if there is a byte */
-	if (buf.tx.consumed < buf.tx.produced) {
+	if (buf.tx.tail < buf.tx.head) {
 		tx_consume();
-		buf.tx.consumed += 1;
+		buf.tx.tail += 1;
 	} else {
-		buf.tx.produced = buf.tx.consumed = 0;
+		buf.tx.head = buf.tx.tail = 0;
 	}
 
 	/* Reception */
 
-	if (buf.rx.produced == buf.rx.consumed)
-		buf.rx.produced = buf.rx.consumed = 0;
+	if (buf.rx.head == buf.rx.tail)
+		buf.rx.head = buf.rx.tail = 0;
 
 	rx_produce();
-	if (buf.rx.produced < buf.rx.len)
-		buf.rx.produced += 1;
+	if (buf.rx.head < buf.rx.len)
+		buf.rx.head += 1;
 }
 
 int main(int argc, char *argv[])
