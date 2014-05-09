@@ -91,7 +91,7 @@ void iobuf_init(void)
 /* Write a byte to be transmitted */
 void iobuf_putc(const char c)
 {
-	tx_produce(c);
+	tx_enqueue(c);
 }
 
 /* Read a byte received */
@@ -118,7 +118,7 @@ void iobuf_update(void)
 	if (buf.rx.head == buf.rx.tail)
 		buf.rx.head = buf.rx.tail = 0;
 
-	rx_produce();
+	rx_enqueue();
 	if (buf.rx.head < buf.rx.len)
 		buf.rx.head += 1;
 }
