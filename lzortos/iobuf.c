@@ -107,7 +107,7 @@ void iobuf_update(void)
 
 	/* Check if there is a byte */
 	if (buf.tx.tail < buf.tx.head) {
-		tx_enqueue();
+		tx_dequeue();
 		buf.tx.tail += 1;
 	} else {
 		buf.tx.head = buf.tx.tail = 0;
