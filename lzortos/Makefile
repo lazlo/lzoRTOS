@@ -241,6 +241,15 @@ AVRDUDE_FLAGS += -i 100 -B 100
 
 
 
+# Simulation support using simulavr
+SIMULAVR = simulavr
+SIMULAVR_FLAGS = --device $(MCU)
+SIMULAVR_FLAGS += --cpufrequency $(F_OSC)
+SIMULAVR_FLAGS += --writetopipe 0x20,-
+SIMULAVR_FLAGS += --irqstatistic
+SIMULAVR_FLAGS += --terminate exit
+#SIMULAVR_FLAGS += --verbose
+
 # ---------------------------------------------------------------------------
 
 # Define directories, if needed.
@@ -351,6 +360,12 @@ gccversion :
 
 
 
+# Run the simulator
+sim: $(TARGET).elf
+	$(SIMULAVR) $(SIMULAVR_FLAGS) --file $(TARGET).elf
+
+simgdb: $(TARGET).elf
+	$(SIMULAVR) $(SIMULAVR_FLAGS) --gdbserver
 # Program the device.  
 program: $(TARGET).hex $(TARGET).eep
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
@@ -475,5 +490,5 @@ clean_list :
 # Listing of phony targets.
 .PHONY : all begin finish end sizebefore sizeafter gccversion \
 build elf hex eep lss sym coff extcoff \
-clean clean_list program
+clean clean_list sim simgdb program
 
